@@ -7,11 +7,12 @@
     padding: 0 1rem;
     margin: 0;
     z-index: 20;
+    position: relative;
 }
   
 .hello-message {
     font-size: 20vw;
-    z-index: 999;
+    z-index: 4;
 }
 
 @media (max-width: 768px) {
@@ -28,4 +29,10 @@
 button {
     z-index: 1;
     cursor: pointer;
+}
+
+img:hover {
+    outline: 5px solid white;
+    outline-offset: 5px; /* Para ajustar a distância do contorno ao redor do botão */
+    border-radius: 50%;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import '@/app/styles/welcome.css';
-
+import Squares from "@/app/utils/Squares";
 import SplitText from "@/app/utils/SplitText";
 import Magnet from "@/app/utils/Magnet";
 import { motion } from "motion/react";
@@ -63,6 +63,21 @@ const Welcome = () => {
 
     return (
     <div id="welcomescreen" className="welcome-container">
+      <Squares 
+          speed={0.5} 
+          squareSize={40} 
+          direction="diagonal" // up, down, left, right, diagonal
+          borderColor="#fff"
+          hoverFillColor="#222"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: -1 // Garante que o fundo fique atrás do conteúdo
+          }}
+        />
       {buttonsVisible && (
         <motion.button
           initial={{ opacity: 0, scale: 0.8 }}
