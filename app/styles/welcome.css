@@ -1,0 +1,30 @@
+.welcome-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 10vw;
+    padding: 0 1rem;
+    margin: 0;
+    z-index: 20;
+}
+  
+.hello-message {
+    font-size: 20vw;
+    z-index: 999;
+}
+
+@media (max-width: 768px) {
+    .welcome-container {
+        flex-direction: column;
+        gap: 10vh; 
+    }
+
+    .hello-message {
+        font-size: 30vw; 
+    }
+}
+
+button {
+    z-index: 1;
+}
