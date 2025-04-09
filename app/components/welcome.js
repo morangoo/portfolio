@@ -68,7 +68,7 @@ const Welcome = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.4 }}
           whileTap={{ scale: 0.9, rotate: -10 }}
           onMouseEnter={() => updateText("Olá!")}
           onClick={() => {
@@ -99,7 +99,7 @@ const Welcome = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.4 }}
           whileTap={{ scale: 0.9, rotate: -10 }}
           onMouseEnter={() => updateText("Hey!")}
           onClick={() => {
