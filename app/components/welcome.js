@@ -7,6 +7,7 @@ import Magnet from "@/app/utils/Magnet";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useIdle } from 'react-haiku';
 
 const Welcome = () => {
     const [text, setText] = useState("Hey!");
@@ -31,6 +32,16 @@ const Welcome = () => {
       }
     };
 
+    const idle = useIdle(5000);
+
+    useEffect(() => {
+      if (idle) {
+        setText(text.replace("!", "?"));
+      } else {
+        setText(text.replace("?", "!"));
+      }
+    }, [idle]);
+    
     return (
     <div id="welcomescreen" className="welcome-container">
       <Squares 

@@ -1,7 +1,9 @@
 'use client';
 import { useEffect, useState } from "react";
 import Welcome from "@/app/components/welcome";
+
 export default function Home() {
+  
   const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
