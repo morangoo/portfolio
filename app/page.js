@@ -10,7 +10,7 @@ export default function Home() {
     const observer = new IntersectionObserver((entries) => {
       const [entry] = entries;
   
-      if (entry.isIntersecting) {
+      if (!entry.isIntersecting) {
         setShowWelcome(false);
         document.body.style.overflow = 'auto';
       }
@@ -19,7 +19,7 @@ export default function Home() {
       threshold: 0.1,
     });
   
-    const targetElement = document.getElementById('teste');
+    const targetElement = document.getElementById('welcomescreen');
     if (targetElement) {
       observer.observe(targetElement);
     }

@@ -54,13 +54,6 @@ const Welcome = () => {
         setText(text.replace("?", "!"));
       }
     }, [idle]);
-
-    useEffect(() => {
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = '';
-      };
-    }, []);
     
     return (
     <div id="welcomescreen" className="welcome-container">
