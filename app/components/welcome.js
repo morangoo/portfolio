@@ -24,36 +24,6 @@ const Welcome = () => {
         }
     };
 
-    useEffect(() => {
-      const handleScroll = (entries) => {
-        const [entry] = entries;
-
-        if (entry.isIntersecting) {
-          document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.overflow = 'auto';
-        }
-      };
-
-      const observer = new IntersectionObserver(handleScroll, {
-        root: null,
-        threshold: 0.1,
-      });
-
-      const element = document.getElementById('welcomescreen');
-      if (element) {
-        observer.observe(element);
-      }
-
-      
-
-      return () => {
-        if (element) {
-          observer.unobserve(element);
-        }
-      };
-    }, []);
-
     const scrollToNextSection = () => {
       const nextSection = document.getElementById('teste');
       if (nextSection) {
