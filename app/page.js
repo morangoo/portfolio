@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import Welcome from "@/app/components/welcome";
+import Header from "@/app/components/header";
 
 export default function Home() {
   
@@ -34,6 +35,7 @@ export default function Home() {
   return (
     <div>
       {showWelcome && <Welcome />}
+      <Header />
       <div id="teste" className="flex h-screen items-center justify-center">
         <h1>Agora podes dar scroll!</h1>
       </div>

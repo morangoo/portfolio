@@ -12,6 +12,7 @@
     "@react-spring/web": "^9.7.5",
     "motion": "^12.6.3",
     "next": "15.2.5",
+    "ogl": "^1.0.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-haiku": "^2.2.0",

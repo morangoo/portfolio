@@ -1,0 +1,28 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 10vw;
+    padding: 0 1rem;
+    margin: 0;
+    z-index: 20;
+    position: relative;
+}
+
+.header-text {
+    font-size: 10vw;
+    z-index: 4;
+    font-weight: 800;
+    font-family: 'DM Sans', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        height: 30vh;
+    }
+
+    .header-text {
+        font-size: 20vw;
+    }
+}

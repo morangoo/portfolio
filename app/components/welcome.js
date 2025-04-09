@@ -26,7 +26,7 @@ const Welcome = () => {
     };
 
     const scrollToNextSection = () => {
-      const nextSection = document.getElementById('teste');
+      const nextSection = document.getElementById('header');
       if (nextSection) {
         nextSection.scrollIntoView({/* behavior: 'smooth' */});
       }
@@ -54,6 +54,13 @@ const Welcome = () => {
         setText(text.replace("?", "!"));
       }
     }, [idle]);
+
+    useEffect(() => {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }, []);
     
     return (
     <div id="welcomescreen" className="welcome-container">
