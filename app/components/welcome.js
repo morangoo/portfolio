@@ -33,9 +33,22 @@ const Welcome = () => {
     };
 
     const idle = useIdle(5000);
+    const [hasInteracted, setHasInteracted] = useState(false);
 
     useEffect(() => {
-      if (idle) {
+      const handleActivity = () => setHasInteracted(true);
+  
+      window.addEventListener('mousemove', handleActivity, { once: true });
+      window.addEventListener('keydown', handleActivity, { once: true });
+  
+      return () => {
+        window.removeEventListener('mousemove', handleActivity);
+        window.removeEventListener('keydown', handleActivity);
+      };
+    }, []);
+
+    useEffect(() => {
+      if (idle && hasInteracted) {
         setText(text.replace("!", "?"));
       } else {
         setText(text.replace("?", "!"));
