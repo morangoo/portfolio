@@ -90,7 +90,7 @@ const Welcome = () => {
             scrollToNextSection();
           }}
         >
-          <Magnet padding={50} disabled={false} magnetStrength={4}>
+          <Magnet padding={50} disabled={false} magnetStrength={1}>
             <Image src="/flagptround.png" alt="Português" width={55} height={55} />
           </Magnet>
         </motion.button>
@@ -121,7 +121,7 @@ const Welcome = () => {
             scrollToNextSection();
           }}
         >
-          <Magnet padding={50} disabled={false} magnetStrength={4}>
+          <Magnet padding={60} disabled={false} magnetStrength={1}>
             <Image src="/flagukround.png" alt="Inglês" width={55} height={55} />
           </Magnet>
         </motion.button>
