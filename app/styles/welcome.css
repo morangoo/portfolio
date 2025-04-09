@@ -24,6 +24,14 @@
     .hello-message {
         font-size: 30vw; 
     }
+
+    img {
+        width: 25vw; 
+        height: auto;
+        outline: 5px solid white;
+        outline-offset: 5px; 
+        border-radius: 50%;
+    }
 }
 
 button {
@@ -33,6 +41,6 @@ button {
 
 img:hover {
     outline: 5px solid white;
-    outline-offset: 5px; /* Para ajustar a distância do contorno ao redor do botão */
+    outline-offset: 5px;
     border-radius: 50%;
 }
