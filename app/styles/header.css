@@ -15,8 +15,7 @@
     flex: 0 0 auto;
     height: 85vh;
     align-self: left;
-    border-radius: 5px;
-    box-shadow: 1 2 15px rgb(27, 27, 27);
+    border-radius: 15px;
 }
 
 .header-text {
