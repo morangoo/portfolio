@@ -12,8 +12,8 @@ export default function Home() {
       const [entry] = entries;
   
       if (!entry.isIntersecting) {
+        document.getElementById('header')?.scrollIntoView({ });
         setShowWelcome(false);
-        document.getElementById('header')?.scrollIntoView({block: "start"});
         document.body.style.overflow = 'auto';
       }
     }, {
