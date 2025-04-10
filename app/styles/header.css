@@ -56,12 +56,12 @@
     text-decoration: underline;
     text-decoration-thickness: 5px;
     text-underline-offset: 0.5vw;
-    text-decoration-color: rgb(131, 64, 255);
+    text-decoration-color: oklch(55.8% .288 302.321);
     text-decoration-style: wavy;
 }
 
 .rotating-text {
-    background-color: rgb(131, 64, 255);
+    background-color: oklch(55.8% .288 302.321);
     color: white;
     font-family: "DM Sans", sans-serif;
     font-weight: bolder;
@@ -120,7 +120,7 @@
         text-decoration: underline;
         text-decoration-thickness: 2px;
         text-underline-offset: 0.5vw;
-        text-decoration-color: rgb(131, 64, 255);
+        text-decoration-color: oklch(55.8% .288 302.321);
         text-decoration-style: wavy;
     }
 }

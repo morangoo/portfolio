@@ -23,6 +23,6 @@ body {
 
 
 ::selection {
-  background: rgb(131, 64, 255);
+  background: oklch(55.8% .288 302.321);
   color: white;
 }

@@ -37,7 +37,7 @@ export default function Home() {
     <div>
       {showWelcome && <Welcome />}
       <Header />
-      <div id="teste" className="flex h-screen items-center justify-center">
+      <div id="teste" className="flex bg-purple-600 h-screen items-center justify-center">
         <h1>Agora podes dar scroll!</h1>
       </div>
       <div id="teste2" className="flex h-screen items-center justify-center">
