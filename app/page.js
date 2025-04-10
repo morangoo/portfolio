@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Welcome from "@/app/components/welcome";
 import Header from "@/app/components/header";
+import AboutMe from "@/app/components/aboutme";
 
 export default function Home() {
   
@@ -37,12 +38,7 @@ export default function Home() {
     <div>
       {showWelcome && <Welcome />}
       <Header />
-      <div id="teste" className="flex bg-purple-600 h-screen items-center justify-center">
-        <h1>Agora podes dar scroll!</h1>
-      </div>
-      <div id="teste2" className="flex h-screen items-center justify-center">
-        <h1>Amo-te Raquel 💜</h1>
-      </div>
+      <AboutMe />
     </div>
   );
 }
