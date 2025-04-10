@@ -1,3 +1,4 @@
 {
-    "test": "Test EN"
-}
+    "greeting": "Hello, I am a developer!",
+    "welcome_message": "Hey!"
+  }

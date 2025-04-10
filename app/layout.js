@@ -1,5 +1,6 @@
 import { DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
+import { LangProvider } from "@/app/contexts/LangContext";
 
 const DMSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -19,6 +20,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <LangProvider>
     <html lang="en">
       <body
         className={`${DMSans.variable} ${DMMono.variable} antialiased`}
@@ -26,5 +28,6 @@ export default function RootLayout({ children }) {
         {children}
       </body>
     </html>
+    </LangProvider>
   );
 }

@@ -1,12 +1,14 @@
 'use client';
 import '@/app/styles/aboutme.css';
-import { useTranslation } from 'next-i18next';
+import { useLang } from '@/app/contexts/LangContext';
+import { useState, useEffect } from 'react';
 
 const AboutMe = () => {
-    const { t } = useTranslation();
+    const { language, translations } = useLang();
+
     return (
     <div id="aboutme" className="about-container">
-      <span className="text-2xl text-white">{t('test')}</span>
+      <span className="text-2xl text-white">{translations.greeting}</span>
     </div>
     );
 };

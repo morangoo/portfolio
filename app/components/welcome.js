@@ -8,8 +8,11 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useIdle } from 'react-haiku';
+import { useLang } from '@/app/contexts/LangContext';
 
 const Welcome = () => {
+    const { language, changeLanguage } = useLang();
+
     const [text, setText] = useState("Hey!");
     const [splitKey, setSplitKey] = useState(0);
     const [buttonsVisible, setButtonsVisible] = useState(false);
@@ -88,6 +91,7 @@ const Welcome = () => {
           whileTap={{ scale: 0.9, rotate: -10 }}
           onMouseEnter={() => updateText("Olá!")}
           onClick={() => {
+            changeLanguage('pt');
             scrollToNextSection();
           }}
         >
@@ -119,6 +123,7 @@ const Welcome = () => {
           whileTap={{ scale: 0.9, rotate: -10 }}
           onMouseEnter={() => updateText("Hey!")}
           onClick={() => {
+            changeLanguage('en');
             scrollToNextSection();
           }}
         >
