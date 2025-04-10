@@ -13,6 +13,7 @@ export default function Home() {
   
       if (!entry.isIntersecting) {
         setShowWelcome(false);
+        document.getElementById('header')?.scrollIntoView({});
         document.body.style.overflow = 'auto';
       }
     }, {
