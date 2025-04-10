@@ -16,7 +16,9 @@ export default function Home() {
       if (!entry.isIntersecting) {
         setShowWelcome(false);
         document.body.style.overflow = 'auto';
-        setContentLoaded(true);
+        setTimeout(() => {
+          setContentLoaded(true);
+        }, 100);
       }
     }, {
       root: null,
