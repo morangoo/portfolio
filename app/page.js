@@ -13,7 +13,11 @@ export default function Home() {
   
       if (!entry.isIntersecting) {
         setShowWelcome(false);
-        document.getElementById('header')?.scrollIntoView({});
+        setTimeout(() => {
+          document.getElementById('header')?.scrollIntoView({
+            block: 'start', 
+          });
+        }, 300);
         document.body.style.overflow = 'auto';
       }
     }, {
