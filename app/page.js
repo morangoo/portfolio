@@ -41,7 +41,7 @@ export default function Home() {
         <h1>Agora podes dar scroll!</h1>
       </div>
       <div id="teste2" className="flex h-screen items-center justify-center">
-        <h1>Agora podes dar scroll!2</h1>
+        <h1>Amo-te Raquel 💜</h1>
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ const Header = () => {
         tension={15}
         friction={50}
       >
-        <h2 className="header-super-text">Hey! I&apos;m</h2>
+        <h1 className="header-super-text">Hey! I&apos;m</h1>
         <h1 className="header-text">Miguel</h1>
         <div className="rotating-skills-container flex items-center justify-center">
           <h2 className="header-lower-text">And I <span className="work">work</span> with</h2>
