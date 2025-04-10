@@ -36,7 +36,6 @@ export default function Home() {
     <div>
       {showWelcome && <Welcome />}
       <Header />
-      <p>testee</p>
     </div>
   );
 }
