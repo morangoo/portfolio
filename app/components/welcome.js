@@ -92,7 +92,7 @@ const Welcome = () => {
           }}
         >
           <Magnet padding={50} disabled={false} magnetStrength={1}>
-            <Image src="/flagptround.png" alt="Português" width={55} height={55} />
+            <Image src="/flagptround.png" alt="Português" width={55} height={55} className="lang-button"/>
           </Magnet>
         </motion.button>
       )}
@@ -123,7 +123,7 @@ const Welcome = () => {
           }}
         >
           <Magnet padding={60} disabled={false} magnetStrength={1}>
-            <Image src="/flagukround.png" alt="Inglês" width={55} height={55} />
+            <Image src="/flagukround.png" alt="Inglês" width={55} height={55} className="lang-button"/>
           </Magnet>
         </motion.button>
       )}
