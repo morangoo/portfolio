@@ -14,11 +14,6 @@ export default function Home() {
       if (!entry.isIntersecting) {
         setShowWelcome(false);
         document.body.style.overflow = 'auto';
-
-        const headerElement = document.getElementById('header');
-        if (headerElement) {
-          headerElement.scrollIntoView({});
-        }
       }
     }, {
       root: null,
@@ -41,12 +36,7 @@ export default function Home() {
     <div>
       {showWelcome && <Welcome />}
       <Header />
-      <div id="teste" className="flex h-screen items-center justify-center">
-        <h1>Agora podes dar scroll!</h1>
-      </div>
-      <div id="teste2" className="flex h-screen items-center justify-center">
-        <h1>Agora podes dar scroll!2</h1>
-      </div>
+      <p>testee</p>
     </div>
   );
 }
