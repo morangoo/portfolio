@@ -12,9 +12,13 @@ export default function Home() {
       const [entry] = entries;
   
       if (!entry.isIntersecting) {
-        document.getElementById('header')?.scrollIntoView({ });
         setShowWelcome(false);
         document.body.style.overflow = 'auto';
+
+        const headerElement = document.getElementById('header');
+        if (headerElement) {
+          headerElement.scrollIntoView({});
+        }
       }
     }, {
       root: null,
