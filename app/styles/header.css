@@ -31,7 +31,7 @@
     font-weight: 500;
     font-family: 'DM Mono', sans-serif;
     margin-bottom: -3vw;
-    padding-left: 15px;
+    padding-left: auto;
 }
 
 .rotating-skills-container {

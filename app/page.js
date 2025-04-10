@@ -14,6 +14,11 @@ export default function Home() {
       if (!entry.isIntersecting) {
         setShowWelcome(false);
         document.body.style.overflow = 'auto';
+        const elemento = document.getElementById('welcome-container');
+        if (elemento) {
+          const alturaElementoRemovido = elemento.offsetHeight;
+          window.scrollTo(0, window.scrollY - alturaElementoRemovido);
+        }
       }
     }, {
       root: null,
@@ -36,6 +41,9 @@ export default function Home() {
     <div>
       {showWelcome && <Welcome />}
       <Header />
+      <p> teste </p>
+      <p> testeee</p>
+      <p> testeeeee</p>
     </div>
   );
 }
