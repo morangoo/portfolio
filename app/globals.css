@@ -22,3 +22,7 @@ body {
 }
 
 
+::selection {
+  background: rgb(131, 64, 255);
+  color: white;
+}
