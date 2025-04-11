@@ -2,12 +2,14 @@
 import '@/app/styles/header.css';
 
 import { useLang } from '@/app/contexts/LangContext';
+import { useState } from 'react';
 
 import Image from 'next/image';
 import AnimatedContent from '@/app/utils/AnimatedContent';
 import RotatingText from '@/app/utils/RotatingText';
 
 const Header = () => {
+  const [hovered, setHovered] = useState(false);
   const { language, translations } = useLang();
     return (
     <div id="header" className="header-container">
@@ -38,7 +40,22 @@ const Header = () => {
         friction={50}
       >
         <h1 className="header-super-text">{translations?.headerScreen?.supertext || ''}</h1>
-        <h1 className="header-text">Miguel</h1>
+        <h1
+          className="header-text"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          <span
+            className={`inset-0 transition-opacity duration-300 ${hovered ? 'opacity-0' : 'opacity-100'}`}
+          >
+            Miguel
+          </span>
+          <span
+            className={`absolute inset-0 transition-opacity transition-colors duration-500 ${hovered ? 'opacity-100 text-purple-600' : 'opacity-0 text-white'}`}
+          >
+            Bruno
+          </span>
+        </h1>
         <div className="rotating-skills-container flex items-center justify-center">
           <h2 className="header-lower-text">{translations?.headerScreen?.lowerfirst || ''} <span className="work">{translations?.headerScreen?.lowerwork || ''}</span> {translations?.headerScreen?.lowerlast || ''}</h2>
           <RotatingText
