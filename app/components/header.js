@@ -51,7 +51,7 @@ const Header = () => {
             Miguel
           </span>
           <span
-            className={`absolute inset-0 transition-opacity transition-colors duration-500 ${hovered ? 'opacity-100 text-purple-600' : 'opacity-0 text-white'}`}
+            className={`absolute inset-0 transition-opacity transition-colors duration-500 ${hovered ? 'opacity-100 header-text-alt' : 'opacity-0 text-white'}`}
           >
             Bruno
           </span>
