@@ -72,7 +72,7 @@
 
 @media (max-width: 900px) {
     .header-container {
-        height: 100dvh;
+        height: 100vh;
         flex-direction: column;
         width: 100vw;
     }
