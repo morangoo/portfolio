@@ -1,4 +1,9 @@
 {
-    "greeting": "Hello, I am a developer!",
-    "welcome_message": "Hey!"
-  }
+  "headerScreen": {
+    "supertext": "Hey! I'm",
+    "lowerfirst": "And i",
+    "lowerwork": "work",
+    "lowerlast": "with"
+  },
+  "greeting": "Hey, I write code!"
+}

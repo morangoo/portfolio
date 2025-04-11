@@ -1,4 +1,9 @@
 {
-    "greeting": "Olá, eu sou um desenvolvedor!",
-    "welcome_message": "Olá!"
+    "headerScreen": {
+      "supertext": "Olá! Sou o",
+      "lowerfirst": "E",
+      "lowerwork": "trabalho",
+      "lowerlast": "com"
+    },
+    "greeting": "Olá, eu sou um desenvolvedor!"
   }

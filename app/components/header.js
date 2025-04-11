@@ -1,12 +1,14 @@
 'use client';
 import '@/app/styles/header.css';
 
+import { useLang } from '@/app/contexts/LangContext';
+
 import Image from 'next/image';
 import AnimatedContent from '@/app/utils/AnimatedContent';
 import RotatingText from '@/app/utils/RotatingText';
 
 const Header = () => {
-    
+  const { language, translations } = useLang();
     return (
     <div id="header" className="header-container">
       <AnimatedContent
@@ -35,10 +37,10 @@ const Header = () => {
         tension={15}
         friction={50}
       >
-        <h1 className="header-super-text">Hey! I&apos;m</h1>
+        <h1 className="header-super-text">{translations?.headerScreen?.supertext || ''}</h1>
         <h1 className="header-text">Miguel</h1>
         <div className="rotating-skills-container flex items-center justify-center">
-          <h2 className="header-lower-text">And I <span className="work">work</span> with</h2>
+          <h2 className="header-lower-text">{translations?.headerScreen?.lowerfirst || ''} <span className="work">{translations?.headerScreen?.lowerwork || ''}</span> {translations?.headerScreen?.lowerlast || ''}</h2>
           <RotatingText
             texts={['React', 'MongoDB', 'Javascript', 'Typescript', 'Node.js', 'Next.js', 'Express', 'Tailwind CSS', 'HTML', 'CSS', 'Python', 'PostgreSQL', 'Photoshop', 'Figma', 'Git', '.NET', 'C#', 'jQuery', 'Java', 'MySQL', 'Microsoft SQL', 'PHP', 'Web Servers', 'REST APIs', 'WebSockets', 'Docker', 'Kubernetes']}
             mainClassName="rotating-text px-2 sm:px-2 md:px-3 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
