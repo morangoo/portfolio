@@ -8,7 +8,7 @@
     margin: 0;
     z-index: 20;
     position: relative;
-    background-color: oklch(55.8% .288 302.321);
+    background-color: #7968f7;
     color: rgb(26, 25, 25);
     font-family: 'DM Sans', sans-serif;
 }
