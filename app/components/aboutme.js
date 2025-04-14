@@ -14,7 +14,7 @@ const AboutMe = () => {
 
     return (
     <div id="aboutme" className="about-container">
-      <div className="flex">
+      <div className="flex about-container-text">
       <BlurText
         text={translations?.aboutScreen?.title || ''}
         delay={150}
@@ -23,6 +23,8 @@ const AboutMe = () => {
         onAnimationComplete={handleAnimationComplete}
         className="about-title"
       />
+      </div>
+      <div>
       </div>
     </div>
     );

@@ -1,12 +1,16 @@
 .about-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     height: 100vh;
     gap: 10vw;
-    padding: 0rem 0rem 0rem 10rem;
     z-index: 20;
     position: relative;
     color: white;
     font-family: 'DM Sans', sans-serif;
+}
+
+.about-container-text {
+    padding: 0rem 0rem 0rem 10rem;
 }
 
 .about-title {
