@@ -33,7 +33,8 @@
 .about-title {
     font-size: 3vw;
     font-family: 'DM Sans', sans-serif;
-    font-weight: 800;;
+    font-weight: 800;
+    white-space: no-wrap;
 }
 
 .about-image {
