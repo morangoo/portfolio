@@ -10,16 +10,26 @@ import AnimatedContent from '@/app/utils/AnimatedContent';
 
 const AboutMe = () => {
     const { language, translations } = useLang();
-    const [muted, setMuted] = useState(true);
     const [animationCompleted, setAnimationCompleted] = useState(false);
 
-    const handleMouseEnter = () => {
-      setMuted(false); 
-    };
+  const [mutedVideo1, setMutedVideo1] = useState(true);
+  const [mutedVideo2, setMutedVideo2] = useState(true);
 
-    const handleMouseLeave = () => {
-      setMuted(true); 
-    };
+  const handleMouseEnterVideo1 = () => {
+    setMutedVideo1(false);
+  };
+
+  const handleMouseLeaveVideo1 = () => {
+    setMutedVideo1(true);
+  };
+
+  const handleMouseEnterVideo2 = () => {
+    setMutedVideo2(false);
+  };
+
+  const handleMouseLeaveVideo2 = () => {
+    setMutedVideo2(true);
+  };
   
 
     const handleAnimationComplete = () => {
@@ -44,11 +54,11 @@ const AboutMe = () => {
         <div className="about-container-media">
           <div className="media-container-flex">
             <img src="/bruges.png" alt="Bruges" className="about-image" />
-            <img src="/ffx.jpg" alt="FFX" className="about-image" />
+            <video src="slide.mp4" autoPlay loop muted={mutedVideo1} className="about-image" id="video" onMouseEnter={handleMouseEnterVideo1} onMouseLeave={handleMouseLeaveVideo1}/>
           </div>
           <div className="media-container-flex">
             <img src="/gym.png" alt="Gym" className="about-image" />
-            <video src="concert.mp4" autoPlay loop muted={muted} className="about-image" id="video" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}/>
+            <video src="concert.mp4" autoPlay loop muted={mutedVideo2} className="about-image" id="video" onMouseEnter={handleMouseEnterVideo2} onMouseLeave={handleMouseLeaveVideo2}/>
           </div>
         </div>
       </FadeContent>
