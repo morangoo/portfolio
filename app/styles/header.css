@@ -16,6 +16,7 @@
     height: 85vh;
     align-self: left;
     border-radius: 15px;
+    filter: grayscale(100%);
 }
 
 .header-text {
@@ -29,7 +30,7 @@
 }
 
 .header-text-alt {
-    color: #7869ff;
+    color: #c2c2c2;
 }
 
 .header-super-text {
@@ -62,13 +63,13 @@
     text-decoration: underline;
     text-decoration-thickness: 5px;
     text-underline-offset: 0.5vw;
-    text-decoration-color: #7869ff;
+    text-decoration-color: #e7e7e7;
     text-decoration-style: dashed;
 }
 
 .rotating-text {
-    background-color: #7869ff;
-    color: white;
+    background-color: #e7e7e7;
+    color: black;
     font-family: "DM Sans", sans-serif;
     font-weight: bolder;
     font-size: 2.5vw;
@@ -76,7 +77,7 @@
 
 @media (max-width: 900px) {
     .header-container {
-        height: 100vh;
+        height: 100lvh;
         flex-direction: column;
         width: 100vw;
     }
@@ -126,7 +127,7 @@
         text-decoration: underline;
         text-decoration-thickness: 2px;
         text-underline-offset: 0.5vw;
-        text-decoration-color: #7869ff;
+        text-decoration-color: #e7e7e7;
         text-decoration-style: wavy;
     }
 }

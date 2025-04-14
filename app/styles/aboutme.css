@@ -1,15 +1,12 @@
 .about-container {
     display: flex;
-    flex-direction: center;
-    align-items: center;
-    padding: 5vw;
     height: 100vh;
     gap: 10vw;
-    margin: 0;
+    margin-top: 20vh;
+    padding: 5rem 10rem;
     z-index: 20;
     position: relative;
-    background-color: #7869ff;
-    color: rgb(26, 25, 25);
+    color: white;
     font-family: 'DM Sans', sans-serif;
 }
 
