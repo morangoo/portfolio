@@ -24,7 +24,7 @@ const AboutMe = () => {
         className="about-title"
       />
       </div>
-      <div>
+      <div className="about-container-images">
       </div>
     </div>
     );

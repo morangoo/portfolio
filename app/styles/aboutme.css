@@ -1,10 +1,10 @@
 .about-container {
+    margin-top: 7rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     height: 100vh;
     gap: 10vw;
     z-index: 20;
-    position: relative;
     color: white;
     font-family: 'DM Sans', sans-serif;
 }
@@ -13,8 +13,14 @@
     padding: 0rem 0rem 0rem 10rem;
 }
 
+.about-container-images {
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+}
+
 .about-title {
-    margin-top: 7rem;
     font-size: 3vw;
     font-family: 'DM Sans', sans-serif;
     font-weight: 800;;
