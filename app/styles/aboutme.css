@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 100vh;
-    gap: 10vw;
+    gap: 0;
     z-index: 20;
     color: white;
     font-family: 'DM Sans', sans-serif;
