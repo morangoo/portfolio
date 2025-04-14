@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 import BlurText from '@/app/utils/BlurText';
 import FadeContent from '@/app/utils/FadeContent'
+import AnimatedContent from '@/app/utils/AnimatedContent';
 
 const AboutMe = () => {
     const { language, translations } = useLang();
@@ -26,15 +27,18 @@ const AboutMe = () => {
 
     return (
     <div id="aboutme" className="about-container">
-      <div className="flex about-container-text">
+      <div className="flex-col about-container-text">
       <BlurText
         text={translations?.aboutScreen?.title || ''}
-        delay={150}
+        delay={25}
         animateBy="words"
         direction="top"
         onAnimationComplete={handleAnimationComplete}
         className="about-title"
       />
+      <FadeContent blur={true} duration={1500} easing="ease-out" initialOpacity={0} delay={500}>
+        <div className="about-content">{translations?.aboutScreen?.content || ''}</div>
+      </FadeContent>
       </div>
       <FadeContent blur={true} duration={1500} easing="ease-out" initialOpacity={0} delay={500}>
         <div className="about-container-media">

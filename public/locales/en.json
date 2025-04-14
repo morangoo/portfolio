@@ -6,6 +6,7 @@
     "lowerlast": "with"
   },
   "aboutScreen": {
-      "title": "My <Source Code/>"
+      "title": "My <Source Code/>",
+      "content": "I'm a Full-Stack Developer with a creative mind and a passion for building solutions that truly make a difference. But above all, I'm a curious, outgoing person driven by everything that inspires me beyond the code.\n\nI love exploring new cultures—whether by traveling or diving into video games, which have always been a big part of my life. In fact, it was through gaming that I first discovered my fascination with technology. Live music, cinema, and writing are also key parts of my creative day-to-day (and yes, coffee is my loyal sidekick through it all).\n\nIn the end, I like to think of my work as a developer as an extension of how I see the world: connected, passionate, and always looking to create something meaningful."
   }
 }

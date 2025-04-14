@@ -31,10 +31,20 @@
 }
 
 .about-title {
-    font-size: 3vw;
+    font-size: 3rem;
     font-family: 'DM Sans', sans-serif;
     font-weight: 800;
     white-space: no-wrap;
+}
+
+.about-content {
+    margin-top: 1rem;
+    padding-left: 1vw;
+    white-space: no-wrap;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.25rem;
+    padding-right: 45px;
+    text-align: justify;
 }
 
 .about-image {
