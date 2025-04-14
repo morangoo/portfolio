@@ -4,13 +4,25 @@ import { useLang } from '@/app/contexts/LangContext';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
+import BlurText from '@/app/utils/BlurText';
+
 const AboutMe = () => {
     const { language, translations } = useLang();
+
+    const handleAnimationComplete = () => {
+    };
 
     return (
     <div id="aboutme" className="about-container">
       <div className="flex">
-        <h1 className="text-5xl">But who's Miguel?</h1>
+      <BlurText
+        text={translations?.aboutScreen?.title || ''}
+        delay={150}
+        animateBy="words"
+        direction="top"
+        onAnimationComplete={handleAnimationComplete}
+        className="about-title"
+      />
       </div>
     </div>
     );

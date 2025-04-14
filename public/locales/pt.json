@@ -5,5 +5,7 @@
       "lowerwork": "trabalho",
       "lowerlast": "com"
     },
-    "greeting": "Olá, eu sou um desenvolvedor!"
+    "aboutScreen": {
+      "title": "O Meu <Código Fonte/>"
+    }
   }

@@ -5,5 +5,7 @@
     "lowerwork": "work",
     "lowerlast": "with"
   },
-  "greeting": "Hey, I write code!"
+  "aboutScreen": {
+      "title": "My <Source Code/>"
+  }
 }
