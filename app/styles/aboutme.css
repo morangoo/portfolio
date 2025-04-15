@@ -3,6 +3,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
     gap: 0;
     z-index: 20;
     color: white;
@@ -38,17 +40,21 @@
 }
 
 .about-content-container {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: flex;
+    align-items: stretch;
 }
 
 .about-content {
     margin-top: 1rem;
     padding-left: 1vw;
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.3vw;
     padding-right: 45px;
     text-align: justify;
+    overflow-y: auto;
+    flex: 1;
+    overflow-wrap: break-word;
+    height: 100%;
+    font-size: clamp(min(1.2vmin ,1.4vmax), min(2.5vmin, 1.45vmax), min(3.5vmin, 2vmax));
     
 }
 
@@ -66,7 +72,4 @@
 
 
 @media (max-width: 900px) {
-    .about-content {
-        padding-left: 0.5vw;
-    }
 }   

@@ -47,10 +47,12 @@ const AboutMe = () => {
         className="about-title"
       />
       <FadeContent blur={true} duration={1500} easing="ease-out" initialOpacity={0} delay={500} className="about-content-container">
-        <div className="about-content">{translations?.aboutScreen?.content || ''}</div>
+        <div className="about-content-container">
+          <div className="about-content">{translations?.aboutScreen?.content || ''}</div>
+        </div>
       </FadeContent>
       </div>
-      <FadeContent blur={true} duration={1500} easing="ease-out" initialOpacity={0} delay={500}>
+      <FadeContent blur={true} duration={1500} easing="ease-out" initialOpacity={0} delay={500} className="fadecontent-media">
         <div className="about-container-media">
           <div className="media-container-flex">
             <img src="/bruges.png" alt="Bruges" className="about-image" />
