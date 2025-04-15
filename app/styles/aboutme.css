@@ -37,14 +37,22 @@
     white-space: no-wrap;
 }
 
+.about-content-container {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    height: 100%;
+    white-space: no-wrap;
+}
+
 .about-content {
     margin-top: 1rem;
     padding-left: 1vw;
-    white-space: no-wrap;
     font-family: 'DM Sans', sans-serif;
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 2vw, 2rem);
     padding-right: 45px;
     text-align: justify;
+    
 }
 
 .about-image {

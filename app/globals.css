@@ -5,6 +5,12 @@
   --foreground: #ededed;
 }
 
+@layer base {
+  html {
+    font-size: 16px;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

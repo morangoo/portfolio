@@ -46,7 +46,7 @@ const AboutMe = () => {
         onAnimationComplete={handleAnimationComplete}
         className="about-title"
       />
-      <FadeContent blur={true} duration={1500} easing="ease-out" initialOpacity={0} delay={500}>
+      <FadeContent blur={true} duration={1500} easing="ease-out" initialOpacity={0} delay={500} className="about-content-container">
         <div className="about-content">{translations?.aboutScreen?.content || ''}</div>
       </FadeContent>
       </div>
