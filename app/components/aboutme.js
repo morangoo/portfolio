@@ -55,11 +55,11 @@ const AboutMe = () => {
       <FadeContent blur={true} duration={1500} easing="ease-out" initialOpacity={0} delay={500} className="fadecontent-media">
         <div className="about-container-media">
           <div className="media-container-flex">
-            <img src="/bruges.png" alt="Bruges" className="about-image" />
+            <img src="/bruges.png" alt="Bruges" className="about-image" style={{ borderTopLeftRadius: '15px' }}/>
             <video src="slide.mp4" autoPlay loop muted={mutedVideo1} className="about-image" id="video" onMouseEnter={handleMouseEnterVideo1} onMouseLeave={handleMouseLeaveVideo1}/>
           </div>
           <div className="media-container-flex">
-            <img src="/gym.png" alt="Gym" className="about-image" />
+            <img src="/gym.png" alt="Gym" className="about-image" style={{ borderBottomLeftRadius: '15px' }}/>
             <video src="concert.mp4" autoPlay loop muted={mutedVideo2} className="about-image" id="video" onMouseEnter={handleMouseEnterVideo2} onMouseLeave={handleMouseLeaveVideo2}/>
           </div>
         </div>
