@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Welcome from "@/app/components/welcome";
 import Header from "@/app/components/header";
+import Projects from "@/app/components/projects";
 import AboutMe from "@/app/components/aboutme";
 
 export default function Home() {
@@ -38,7 +39,8 @@ export default function Home() {
     <div>
       {showWelcome && <Welcome />}
       <Header />
-      <AboutMe />
+      {/*<AboutMe />*/}
+      <Projects />
     </div>
   );
 }
