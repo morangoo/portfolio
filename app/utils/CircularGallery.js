@@ -402,14 +402,14 @@ class App {
     this.isDown = true
     this.scroll.position = this.scroll.current
     this.start = e.touches ? e.touches[0].clientX : e.clientX
-    this.hasMoved = false // Reseta a flag para detectar movimento
+    this.hasMoved = false 
   }
   onTouchMove(e) {
     if (!this.isDown) return
     const x = e.touches ? e.touches[0].clientX : e.clientX
     const distance = (this.start - x) * 0.05
     this.scroll.target = this.scroll.position + distance
-    this.hasMoved = true // Marca que houve movimento
+    this.hasMoved = true 
   }
   onTouchUp() {
     this.isDown = false
@@ -456,7 +456,7 @@ class App {
     this.raf = window.requestAnimationFrame(this.update.bind(this))
   }
   onCanvasClick = (e) => {
-    if (e.target !== this.gl.canvas || this.hasMoved) return // Ignora se houve movimento
+    if (e.target !== this.gl.canvas || this.hasMoved) return 
   
     const mouseX = e.clientX
     const mouseY = e.clientY
