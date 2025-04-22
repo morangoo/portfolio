@@ -39,8 +39,8 @@ export default function Home() {
     <div>
       {showWelcome && <Welcome />}
       <Header />
-      {/*<AboutMe />*/}
       <Projects />
+      {/*<AboutMe />*/}
     </div>
   );
 }
