@@ -16,7 +16,23 @@ const Projects = () => {
         <CircularGallery 
           bend={1} 
           textColor="#ffffff" 
-          borderRadius={0.05}   // Passando a função como prop
+          borderRadius={0.05}
+          items={
+            [
+              {
+                image: '/bruges.png',
+                text: 'SOON'
+              },
+              {
+                image: '/bruges.png',
+                text: 'SOON'
+              },
+              {
+                image: 'ffx.jpg',
+                text: 'SOON'
+              }
+            ]
+          }
         />
       </div>
     </div>

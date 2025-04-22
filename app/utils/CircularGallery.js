@@ -186,7 +186,11 @@ class Media {
             vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
           );
           vec4 color = texture2D(tMap, uv);
-          
+
+          // GRAYSCALE
+          float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+          color.rgb = vec3(gray);
+
           // Apply rounded corners (assumes vUv in [0,1])
           float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
           if(d > 0.0) {
@@ -206,7 +210,7 @@ class Media {
       },
       transparent: true
     })
-    const img = new Image()
+    const img = new window.Image()
     img.crossOrigin = "anonymous"
     img.src = this.image
     img.onload = () => {
@@ -219,6 +223,7 @@ class Media {
       geometry: this.geometry,
       program: this.program
     })
+    this.plane.__media = this
     this.plane.setParent(this.scene)
   }
   createTitle() {
@@ -289,6 +294,37 @@ class Media {
     this.widthTotal = this.width * this.length
     this.x = this.width * this.index
   }
+}
+
+function getMeshUnderPointer(meshes, gl, camera, mouseX, mouseY) {
+  const rect = gl.canvas.getBoundingClientRect()
+  const mx = ((mouseX - rect.left) / rect.width) * 2 - 1
+  const my = -((mouseY - rect.top) / rect.height) * 2 + 1
+
+  const cameraZ = camera.position.z
+  const fov = camera.fov * Math.PI / 180
+  const viewHeight = 2 * Math.tan(fov / 2) * cameraZ
+  const viewWidth = viewHeight * camera.aspect
+
+  const worldX = mx * viewWidth / 2
+  const worldY = my * viewHeight / 2
+
+  for (let media of meshes) {
+    const plane = media.plane
+    const px = plane.position.x
+    const py = plane.position.y
+    const w = plane.scale.x
+    const h = plane.scale.y
+    if (
+      worldX >= px - w / 2 &&
+      worldX <= px + w / 2 &&
+      worldY >= py - h / 2 &&
+      worldY <= py + h / 2
+    ) {
+      return media
+    }
+  }
+  return null
 }
 
 class App {
@@ -421,12 +457,22 @@ class App {
     this.scroll.last = this.scroll.current
     this.raf = window.requestAnimationFrame(this.update.bind(this))
   }
+  onCanvasClick = (e) => {
+    if (e.target !== this.gl.canvas) return
+    const mouseX = e.clientX
+    const mouseY = e.clientY
+    const hit = getMeshUnderPointer(this.medias, this.gl, this.camera, mouseX, mouseY)
+    if (hit) {
+      console.log(hit.image)
+    }
+  }
   addEventListeners() {
     this.boundOnResize = this.onResize.bind(this)
     this.boundOnWheel = this.onWheel.bind(this)
     this.boundOnTouchDown = this.onTouchDown.bind(this)
     this.boundOnTouchMove = this.onTouchMove.bind(this)
     this.boundOnTouchUp = this.onTouchUp.bind(this)
+    this.boundOnCanvasClick = this.onCanvasClick.bind(this)
     window.addEventListener('resize', this.boundOnResize)
     window.addEventListener('mousewheel', this.boundOnWheel)
     window.addEventListener('wheel', this.boundOnWheel)
@@ -436,6 +482,7 @@ class App {
     window.addEventListener('touchstart', this.boundOnTouchDown)
     window.addEventListener('touchmove', this.boundOnTouchMove)
     window.addEventListener('touchend', this.boundOnTouchUp)
+    this.gl.canvas.addEventListener('click', this.boundOnCanvasClick)
   }
   destroy() {
     window.cancelAnimationFrame(this.raf)
@@ -448,6 +495,8 @@ class App {
     window.removeEventListener('touchstart', this.boundOnTouchDown)
     window.removeEventListener('touchmove', this.boundOnTouchMove)
     window.removeEventListener('touchend', this.boundOnTouchUp)
+    if (this.gl && this.boundOnCanvasClick)
+      this.gl.canvas.removeEventListener('click', this.boundOnCanvasClick)
     if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
       this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas)
     }
