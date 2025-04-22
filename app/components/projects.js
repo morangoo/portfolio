@@ -17,22 +17,6 @@ const Projects = () => {
           bend={1} 
           textColor="#ffffff" 
           borderRadius={0.05}
-          items={
-            [
-              {
-                image: '/bruges.png',
-                text: 'SOON'
-              },
-              {
-                image: '/bruges.png',
-                text: 'SOON'
-              },
-              {
-                image: 'ffx.jpg',
-                text: 'SOON'
-              }
-            ]
-          }
         />
       </div>
     </div>
