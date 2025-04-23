@@ -59,7 +59,7 @@ const Header = () => {
         <div className="rotating-skills-container flex items-center justify-center">
           <h2 className="header-lower-text">{translations?.headerScreen?.lowerfirst || ''} <span className="work">{translations?.headerScreen?.lowerwork || ''}</span> {translations?.headerScreen?.lowerlast || ''}</h2>
           <RotatingText
-            texts={['React', 'MongoDB', 'Javascript', 'Typescript', 'Node.js', 'Next.js', 'RESTful API', 'Tailwind CSS', 'HTML', 'CSS', 'Python', 'PostgreSQL', 'Photoshop', 'Figma', 'Git', '.NET', 'C#', 'jQuery', 'Java', 'MySQL', 'Microsoft SQL', 'PHP', 'Web Servers', 'WebSockets', 'Docker', 'Kubernetes', 'Lua', 'Linux', 'Apache', 'RabbitMQ', 'Unity', 'Arduino', 'Copywriting', 'Graphic Design', 'Video Editing', 'Vue', 'Bootstrap', 'Kafka', 'Micro Services', 'Nginx']}
+            texts={['React', 'MongoDB', 'Javascript', 'Typescript', 'Node.js', 'Next.js', 'RESTful API', 'Tailwind CSS', 'HTML', 'CSS', 'Python', 'PostgreSQL', 'Photoshop', 'Figma', 'Git', '.NET', 'C#', 'jQuery', 'Java', 'MySQL', 'Microsoft SQL', 'PHP', 'Web Servers', 'WebSockets', 'Docker', 'Kubernetes', 'Lua', 'Linux', 'Apache', 'RabbitMQ', 'Unity', 'Arduino', 'Copywriting', 'Graphic Design', 'Video Editing', 'Vue', 'Bootstrap', 'Kafka', 'Micro Services', 'Nginx', 'Jenkins', 'Unreal Engine', 'Blender']}
             mainClassName="rotating-text px-2 sm:px-2 md:px-3 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
             staggerFrom={"last"}
             initial={{ y: "100%" }}
