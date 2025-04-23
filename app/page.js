@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     <div>
-      <div style={{position: "fixed", top: 20, right: 20, zIndex: 1000}} className="flex gap-3">
+      <div style={{position: "fixed", top: 20, right: 20, zIndex: 1000}} className="hidden sm:flex gap-3">
         <a href="https://github.com/migueelss" target="_blank">
           <img className="menuLogo" src="/githublogo.svg" style={{width: "32px"}}/>
         </a>
