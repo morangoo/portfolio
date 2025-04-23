@@ -92,7 +92,9 @@ class Title {
         }
       `,
       uniforms: { tMap: { value: texture } },
-      transparent: true
+      depthTest: false,
+      depthWrite: false,
+      transparent: false,
     })
     this.mesh = new Mesh(this.gl, { geometry, program })
     const aspect = width / height
@@ -358,8 +360,8 @@ class App {
   }
   createGeometry() {
     this.planeGeometry = new Plane(this.gl, {
-      heightSegments: 50,
-      widthSegments: 100
+      heightSegments: 25,
+      widthSegments: 50
     })
   }
   createMedias(items, bend = 1, textColor, borderRadius, font) {
@@ -442,18 +444,25 @@ class App {
     }
   }
   update() {
+    const now = Date.now();
+    if (now - this.lastUpdate < 16) { // Limitar para aproximadamente 60fps
+      this.raf = window.requestAnimationFrame(this.update.bind(this));
+      return;
+    }
+    this.lastUpdate = now;
+  
     this.scroll.current = lerp(
       this.scroll.current,
       this.scroll.target,
       this.scroll.ease
-    )
-    const direction = this.scroll.current > this.scroll.last ? 'right' : 'left'
+    );
+    const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
     if (this.medias) {
-      this.medias.forEach((media) => media.update(this.scroll, direction))
+      this.medias.forEach((media) => media.update(this.scroll, direction));
     }
-    this.renderer.render({ scene: this.scene, camera: this.camera })
-    this.scroll.last = this.scroll.current
-    this.raf = window.requestAnimationFrame(this.update.bind(this))
+    this.renderer.render({ scene: this.scene, camera: this.camera });
+    this.scroll.last = this.scroll.current;
+    this.raf = window.requestAnimationFrame(this.update.bind(this));
   }
   onCanvasClick = (e) => {
     if (e.target !== this.gl.canvas || this.hasMoved) return 
@@ -466,7 +475,11 @@ class App {
     }
   }
   addEventListeners() {
-    this.boundOnResize = this.onResize.bind(this)
+    this.gl.canvas.addEventListener('webglcontextlost', (e) => {
+      e.preventDefault();
+      this.destroy();
+    });
+    this.boundOnResize = debounce(this.onResize.bind(this), 200);
     this.boundOnTouchDown = this.onTouchDown.bind(this)
     this.boundOnTouchMove = this.onTouchMove.bind(this)
     this.boundOnTouchUp = this.onTouchUp.bind(this)
