@@ -117,6 +117,7 @@ class Media {
     scene,
     screen,
     text,
+    id,
     viewport,
     bend,
     textColor,
@@ -133,6 +134,8 @@ class Media {
     this.scene = scene
     this.screen = screen
     this.text = text
+    this.id = id
+    this.isHovered = false;
     this.viewport = viewport
     this.bend = bend
     this.textColor = textColor
@@ -170,6 +173,7 @@ class Media {
         uniform vec2 uPlaneSizes;
         uniform sampler2D tMap;
         uniform float uBorderRadius;
+        uniform float uHovered;
         varying vec2 vUv;
         
         // Rounded box SDF for UV space
@@ -191,7 +195,7 @@ class Media {
 
           // GRAYSCALE
           float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-          color.rgb = vec3(gray);
+          color.rgb = mix(vec3(gray), color.rgb, uHovered);
 
           // Apply rounded corners (assumes vUv in [0,1])
           float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
@@ -208,7 +212,8 @@ class Media {
         uImageSizes: { value: [0, 0] },
         uSpeed: { value: 0 },
         uTime: { value: 100 * Math.random() },
-        uBorderRadius: { value: this.borderRadius }
+        uBorderRadius: { value: this.borderRadius },
+        uHovered: { value: 0 },
       },
       transparent: true
     })
@@ -382,29 +387,31 @@ class App {
     const galleryItems = items && items.length ? items : defaultItems
     this.mediasImages = galleryItems.concat(galleryItems)
     this.medias = this.mediasImages.map((data, index) => {
-      return new Media({
-        geometry: this.planeGeometry,
-        gl: this.gl,
-        image: data.image,
-        index,
-        length: this.mediasImages.length,
-        renderer: this.renderer,
-        scene: this.scene,
-        screen: this.screen,
-        text: data.text,
-        viewport: this.viewport,
-        bend,
-        textColor,
-        borderRadius,
-        font
+        return new Media({
+          geometry: this.planeGeometry,
+          gl: this.gl,
+          image: data.image,
+          index,
+          length: this.mediasImages.length,
+          renderer: this.renderer,
+          scene: this.scene,
+          screen: this.screen,
+          text: data.text,
+          id: data.id, // <-- NOVO
+          viewport: this.viewport,
+          bend,
+          textColor,
+          borderRadius,
+          font
+        })
       })
-    })
   }
   onTouchDown(e) {
     this.isDown = true
     this.scroll.position = this.scroll.current
     this.start = e.touches ? e.touches[0].clientX : e.clientX
     this.hasMoved = false 
+    this.gl.canvas.style.cursor = 'grabbing';
   }
   onTouchMove(e) {
     if (!this.isDown) return
@@ -415,6 +422,7 @@ class App {
   }
   onTouchUp() {
     this.isDown = false
+    this.gl.canvas.style.cursor = 'grab';
     this.onCheck()
   }
   onCheck() {
@@ -464,6 +472,24 @@ class App {
     this.scroll.last = this.scroll.current;
     this.raf = window.requestAnimationFrame(this.update.bind(this));
   }
+  onCanvasMouseMove = (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    let hovered = null;
+    for (let media of this.medias) {
+      media.isHovered = false;
+      media.program.uniforms.uHovered.value = 0;
+    }
+    const hit = getMeshUnderPointer(this.medias, this.gl, this.camera, mouseX, mouseY);
+    if (hit) {
+      hit.isHovered = true;
+      hit.program.uniforms.uHovered.value = 1;
+      hovered = hit;
+      this.gl.canvas.style.cursor = 'pointer';
+    } else {
+      this.gl.canvas.style.cursor = this.isDown ? 'grabbing' : 'grab';
+    }
+  };
   onCanvasClick = (e) => {
     if (e.target !== this.gl.canvas || this.hasMoved) return 
   
@@ -471,7 +497,7 @@ class App {
     const mouseY = e.clientY
     const hit = getMeshUnderPointer(this.medias, this.gl, this.camera, mouseX, mouseY)
     if (hit) {
-      console.log(hit.image)
+      //alert(hit.id)
     }
   }
   addEventListeners() {
@@ -492,6 +518,7 @@ class App {
     window.addEventListener('touchmove', this.boundOnTouchMove)
     window.addEventListener('touchend', this.boundOnTouchUp)
     this.gl.canvas.addEventListener('click', this.boundOnCanvasClick)
+    this.gl.canvas.addEventListener('mousemove', this.onCanvasMouseMove.bind(this));
   }
   destroy() {
     window.cancelAnimationFrame(this.raf)
@@ -509,6 +536,7 @@ class App {
     if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
       this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas)
     }
+    this.gl.canvas.removeEventListener('mousemove', this.onCanvasMouseMove);
   }
 }
 
