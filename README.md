@@ -3,3 +3,4 @@
 ### To-Do List
 - Optimizar projetos
 - Alterar projetos no mobile
+- Adicionar Work Experience (Infinite Menu do React-Bits é uma possibilidade, ou posso fazer um trajeto baseado em amcharts)
