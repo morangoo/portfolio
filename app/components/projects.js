@@ -24,7 +24,7 @@ const Projects = () => {
         threshold={0.2}
         >
         <DecryptedText
-        text="Projetos"
+        text={translations?.projectsScreen?.projects || ''}
         animateOn="view"
         revealDirection="start"
         speed={50}
