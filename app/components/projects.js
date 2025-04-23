@@ -4,6 +4,8 @@ import '@/app/styles/projects.css';
 import { useLang } from '@/app/contexts/LangContext';
 
 import CircularGallery from '@/app/utils/CircularGallery';
+import DecryptedText from '@/app/utils/DecryptedText';
+import AnimatedContent from '@/app/utils/AnimatedContent';
 
 const Projects = () => {
   const { language, translations } = useLang();
@@ -11,7 +13,26 @@ const Projects = () => {
 
   return (
     <div id="projects" className="projects-container">
-    <h1 className="projects-title">Projetos</h1>
+    <h1 className="projects-title">
+      <AnimatedContent
+        distance={150}
+        direction={'vertical'}
+        config={{ tension: 80, friction: 20 }}
+        initialOpacity={0.2}
+        animateOpacity
+        scale={1.1}
+        threshold={0.2}
+        >
+        <DecryptedText
+        text="Projetos"
+        animateOn="view"
+        revealDirection="start"
+        speed={50}
+        sequential={true}
+        useOriginalCharsOnly={true}
+        />
+      </AnimatedContent>
+    </h1>
       <div className="projects-list-container">
         <CircularGallery 
           bend={1}
