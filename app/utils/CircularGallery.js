@@ -239,7 +239,7 @@ class Media {
     })
   }
   update(scroll, direction) {
-    this.plane.position.x = this.x - scroll.current - this.extra
+    this.plane.position.x = this.x - scroll.current - this.extra;
 
     const x = this.plane.position.x
     const H = this.viewport.width / 2
@@ -360,8 +360,8 @@ class App {
   }
   createGeometry() {
     this.planeGeometry = new Plane(this.gl, {
-      heightSegments: 25,
-      widthSegments: 50
+      heightSegments: 10,
+      widthSegments: 20
     })
   }
   createMedias(items, bend = 1, textColor, borderRadius, font) {
