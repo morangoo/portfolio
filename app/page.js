@@ -37,6 +37,17 @@ export default function Home() {
 
   return (
     <div>
+      <div style={{position: "fixed", top: 20, right: 20, zIndex: 1000}} className="flex gap-3">
+        <a href="https://github.com/migueelss" target="_blank">
+          <img className="menuLogo" src="/githublogo.svg" style={{width: "32px"}}/>
+        </a>
+        <a href="https://www.linkedin.com/in/santosbruno01/" target="_blank">
+          <img className="menuLogo" src="/linkedinlogo.svg" style={{width: "32px"}}/>
+        </a>
+        <a href="https://buymeacoffee.com/migueelss" target="_blank">
+          <img className="menuLogo" src="/bmclogo.svg" style={{width: "32px"}}/>
+        </a>
+      </div>
       {showWelcome && <Welcome />}
       <Header />
       <Projects />

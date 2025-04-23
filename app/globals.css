@@ -3,6 +3,8 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
+  scrollbar-width: thin;
+  scrollbar-color: #444 #0a0a0a; 
 }
 
 @layer base {
@@ -26,10 +28,20 @@ body {
   color: var(--foreground);
   font-family: "DM Sans", "DM Mono", sans-serif;
   overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff #111;
 }
 
 
 ::selection {
   background: #e7e7e7;
   color: black;
+}
+
+.menuLogo {
+  opacity: 0.4
+}
+
+.menuLogo:hover{
+  opacity: 1
 }
