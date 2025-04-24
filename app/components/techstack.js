@@ -1,5 +1,5 @@
 'use client';
-import '@/app/styles/workexperience.css';
+import '@/app/styles/techstack.css';
 
 import { useLang } from '@/app/contexts/LangContext';
 
@@ -7,12 +7,12 @@ import DecryptedText from '@/app/utils/DecryptedText';
 import AnimatedContent from '@/app/utils/AnimatedContent';
 
 
-const WorkExperience = () => {
+const TechStack = () => {
   const { language, translations } = useLang();
 
   return (
-    <div id="workexperience" className="work-experience-container">
-      <h1 className="workexperience-title">
+    <div id="techstack" className="techstack-container">
+      <h1 className="techstack-title">
         <AnimatedContent
             distance={150}
             direction={'vertical'}
@@ -23,7 +23,7 @@ const WorkExperience = () => {
             threshold={0.2}
             >
             <DecryptedText
-            text={translations?.workExperienceScreen?.title || ''}
+            text={translations?.techStackScreen?.title || ''}
             animateOn="view"
             revealDirection="start"
             speed={50}
@@ -37,4 +37,4 @@ const WorkExperience = () => {
   );
 };
 
-export default WorkExperience;
+export default TechStack;

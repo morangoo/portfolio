@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Welcome from "@/app/components/welcome";
 import Header from "@/app/components/header";
 import Projects from "@/app/components/projects";
+import TechStack from "@/app/components/techstack";
 import WorkExperience from "@/app/components/workexperience";
 import AboutMe from "@/app/components/aboutme";
 
@@ -52,6 +53,7 @@ export default function Home() {
       {showWelcome && <Welcome />}
       <Header />
       <Projects />
+      <TechStack />
       <WorkExperience />
       {/*<AboutMe />*/}
     </div>
