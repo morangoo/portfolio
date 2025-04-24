@@ -101,7 +101,7 @@ const ExpandableCards = ({ cards }) => {
           position: absolute;
           width: var(--card-size);
           height: var(--card-size);
-          background-color:rgb(66, 66, 66); /* CINZENTO por padrão */
+          background-color: rgba(0, 0, 0, 0.25); /* Default: desaturado */
           color: rgba(0, 0, 0, 0);
           display: flex;
           justify-content: center;
@@ -122,31 +122,34 @@ const ExpandableCards = ({ cards }) => {
           z-index: 0;
         }
         .container:hover .card {
-          background-color: #5e5cfc; /* COR original ao hover */
+          /* Permanece a cor desaturada até hover individual */
           transform:
             rotate(calc(var(--i) * 8deg))
             translate(calc(var(--i) * var(--trans-x)), var(--trans-y));
-          color: rgba(0, 0, 0, 0.25);
-          box-shadow: 0 9px 22px rgba(0, 0, 0, 0.23);
+          color: rgba(0, 0, 0, 0.0);
+          box-shadow: 0 9px 22px rgba(0, 0, 0, 0);
+          border: var(--border-width) solid rgba(0, 0, 0, 0.0);
         }
         .container:active .card {
-          background-color: #333;
+          background-color: rgba(0, 0, 0, 0.0);
         }
         .card:active {
           translate: calc(var(--i) * var(--active-trans-x)) var(--active-trans-y);
           z-index: 1;
           background-color: #5e5cfc;
+          border: var(--border-width) solid rgba(0, 0, 0, 0.1);
         }
 
         .card--hovered {
           z-index: 10 !important;
-          background-color: #5e5cfc !important;
+          background-color: #5e5cfc !important; /* Somente a hovered tem cor! */
           transform:
             scale(1.15)
             rotate(calc(var(--i) * 8deg))
             translate(calc(var(--i) * var(--trans-x)), var(--hover-trans-y)) !important;
           color: #222 !important;
           box-shadow: 0 14px 38px rgba(0,0,0,0.32) !important;
+          border: var(--border-width) solid rgba(0, 0, 0, 0.1) !important;
         }
         .card--faded {
           filter: grayscale(1) brightness(0.75) !important;
