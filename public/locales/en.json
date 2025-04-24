@@ -11,5 +11,8 @@
   "aboutScreen": {
       "title": "My <Source Code/>",
       "content": "I'm a 22-year-old creative soul — curious, outgoing, and driven by everything that inspires me beyond the lines of code. I love exploring new cultures, whether by traveling or diving into video games that have always been a part of my life — in fact, it was through them that I first discovered my fascination with technology. Live music, cinema, and writing are also core parts of who I am (and yes, coffee is my loyal sidekick through it all). I like to think of my work as a developer as an extension of how I engage with the world — a way to unleash my creative side. My journey has been one of constant learning, where I strive to grow not just as a professional, but above all, as a person. I believe that the balance between technology, creativity, and curiosity is what allows me to face challenges with a fresh, innovative, and unique perspective."
+  },
+  "workExperienceScreen": {
+    "title": "Work Experience"
   }
 }
