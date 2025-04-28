@@ -14,10 +14,8 @@
     "workExperienceScreen": {
       "title": "Experiência Profissional"
     },
-    "techStackScreen": {
-      "title": "Tech Stack"
-    },
     "galleryScreen": {
       "title": "Galeria"
-    }
+    },
+    "downloadCV": "Descarregar CV"
   }
