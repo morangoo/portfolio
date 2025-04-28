@@ -16,5 +16,8 @@
   },
   "techStackScreen": {
     "title": "Tech Stack"
+  },
+  "galleryScreen": {
+    "title": "Gallery"
   }
 }

@@ -1,0 +1,22 @@
+.gallery-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 0 1rem;
+    margin: 0;
+    z-index: 20;
+    position: relative;
+  }
+  
+.gallery-title {
+    margin-top: 0;
+    position: absolute;
+    top: 3vw;
+    left: 5vw;
+    font-size: 3rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 800;
+}
+  
+  
