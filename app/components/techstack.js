@@ -34,6 +34,7 @@ const TechStack = () => {
             />
         </AnimatedContent>
       </h1>
+      <p>WIP</p>
     </div>
   );
 };
