@@ -55,7 +55,7 @@ export default function Home() {
       <Projects />
       <TechStack />
       <WorkExperience />
-      {/*<AboutMe />*/}
+      <AboutMe />
     </div>
   );
 }

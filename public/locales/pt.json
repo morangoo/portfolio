@@ -9,9 +9,8 @@
       "projects": "Projetos"
     },
     "aboutScreen": {
-      "title": "O Meu <Código Fonte/>",
-      "content":  "Sou um jovem criativo de 22 anos, curioso, extrovertido e movido por tudo aquilo que me inspira fora do código. Adoro explorar novas culturas, seja a viajar ou a mergulhar em videojogos que sempre fizeram parte da minha vida — aliás, foi através deles que descobri o meu fascínio por tecnologia. Música ao vivo, cinema e escrita também são pilares do meu ser (e sim, o café é o meu fiel escudeiro no meio disto tudo). Gosto de pensar que o meu trabalho como desenvolvedor é uma extensão da minha forma de estar no mundo e que permite soltar o meu lado criativo. A minha jornada tem sido um caminho de aprendizagem constante, onde busco sempre crescer como profissional e, acima de tudo, como pessoa. Acredito que o equilíbrio entre a tecnologia, a criatividade e a curiosidade me permite enfrentar desafios de forma única, inovadora e com um olhar fresco sobre o que está por vir."
-    },
+      "title": "Sobre Mim"
+  },
     "workExperienceScreen": {
       "title": "Experiência Profissional"
     },
