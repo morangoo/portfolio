@@ -415,7 +415,6 @@ class App {
   }
   onTouchMove(e) {
     if (!this.isDown) return
-    e.preventDefault();
     const x = e.touches ? e.touches[0].clientX : e.clientX
     const distance = (this.start - x) * 0.05
     this.scroll.target = this.scroll.position + distance
@@ -516,7 +515,7 @@ class App {
     window.addEventListener('mousemove', this.boundOnTouchMove)
     window.addEventListener('mouseup', this.boundOnTouchUp)
     window.addEventListener('touchstart', this.boundOnTouchDown)
-    window.addEventListener('touchmove', this.boundOnTouchMove, { passive: false });
+    window.addEventListener('touchmove', this.boundOnTouchMove)
     window.addEventListener('touchend', this.boundOnTouchUp)
     this.gl.canvas.addEventListener('click', this.boundOnCanvasClick)
     this.gl.canvas.addEventListener('mousemove', this.onCanvasMouseMove.bind(this));
