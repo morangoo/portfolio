@@ -9,6 +9,10 @@ import {
   Texture,
 } from 'ogl'
 
+// Detecta mobile (simples)
+const isMobile = typeof window !== 'undefined' &&
+  ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+
 function debounce(func, wait) {
   let timeout
   return function (...args) {
@@ -292,11 +296,12 @@ class Media {
         this.plane.program.uniforms.uViewportSizes.value = [this.viewport.width, this.viewport.height]
       }
     }
-    this.scale = this.screen.height / 1500
-    this.plane.scale.y = (this.viewport.height * (900 * this.scale)) / this.screen.height
-    this.plane.scale.x = (this.viewport.width * (700 * this.scale)) / this.screen.width
+    // Aumenta a escala dos planos no mobile
+    this.scale = this.screen.height / (isMobile ? 700 : 1500)
+    this.plane.scale.y = (this.viewport.height * (isMobile ? 1200 : 900) * this.scale) / this.screen.height
+    this.plane.scale.x = (this.viewport.width * (isMobile ? 900 : 700) * this.scale) / this.screen.width
     this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y]
-    this.padding = 2
+    this.padding = isMobile ? 3 : 2
     this.width = this.plane.scale.x + this.padding
     this.widthTotal = this.width * this.length
     this.x = this.width * this.index
@@ -350,7 +355,9 @@ class App {
     this.addEventListeners()
   }
   createRenderer() {
-    this.renderer = new Renderer({ alpha: true })
+    // Usa DPR alto só para telas retina mas limita a 2 (memória mobile)
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    this.renderer = new Renderer({ alpha: true, dpr })
     this.gl = this.renderer.gl
     this.gl.clearColor(0, 0, 0, 0)
     this.container.appendChild(this.gl.canvas)
@@ -364,9 +371,12 @@ class App {
     this.scene = new Transform()
   }
   createGeometry() {
+    // Menos segmentos no mobile (melhor performance)
+    const heightSegments = isMobile ? 3 : 10
+    const widthSegments = isMobile ? 8 : 20
     this.planeGeometry = new Plane(this.gl, {
-      heightSegments: 10,
-      widthSegments: 20
+      heightSegments,
+      widthSegments
     })
   }
   createMedias(items, bend = 1, textColor, borderRadius, font) {
@@ -386,25 +396,32 @@ class App {
     ]
     const galleryItems = items && items.length ? items : defaultItems
     this.mediasImages = galleryItems.concat(galleryItems)
-    this.medias = this.mediasImages.map((data, index) => {
-        return new Media({
-          geometry: this.planeGeometry,
-          gl: this.gl,
-          image: data.image,
-          index,
-          length: this.mediasImages.length,
-          renderer: this.renderer,
-          scene: this.scene,
-          screen: this.screen,
-          text: data.text,
-          id: data.id, // <-- NOVO
-          viewport: this.viewport,
-          bend,
-          textColor,
-          borderRadius,
-          font
-        })
+    // Para mobile, só instancia até X itens visíveis (+2 dos lados)
+    let mediasToRender = this.mediasImages
+    if (isMobile) {
+      mediasToRender = this.mediasImages.slice(0, Math.min(7, this.mediasImages.length))
+    }
+    this.medias = mediasToRender.map((data, index) => {
+      // Fonte maior no mobile
+      const fontSize = isMobile ? "bold 22px DM Sans" : font
+      return new Media({
+        geometry: this.planeGeometry,
+        gl: this.gl,
+        image: data.image,
+        index,
+        length: mediasToRender.length,
+        renderer: this.renderer,
+        scene: this.scene,
+        screen: this.screen,
+        text: data.text,
+        id: data.id,
+        viewport: this.viewport,
+        bend,
+        textColor,
+        borderRadius,
+        font: fontSize
       })
+    })
   }
   onTouchDown(e) {
     this.isDown = true
@@ -436,6 +453,10 @@ class App {
     this.screen = {
       width: this.container.clientWidth,
       height: this.container.clientHeight
+    }
+    // Para mobile, força altura mínima para área de toque confortável
+    if (this.screen.width < 600) {
+      this.screen.height = Math.max(this.screen.height, 300)
     }
     this.renderer.setSize(this.screen.width, this.screen.height)
     this.camera.perspective({
@@ -473,6 +494,8 @@ class App {
     this.raf = window.requestAnimationFrame(this.update.bind(this));
   }
   onCanvasMouseMove = (e) => {
+    // Só processa hover no desktop, no mobile não tem hover
+    if (isMobile) return
     const mouseX = e.clientX;
     const mouseY = e.clientY;
     let hovered = null;
@@ -492,7 +515,6 @@ class App {
   };
   onCanvasClick = (e) => {
     if (e.target !== this.gl.canvas || this.hasMoved) return 
-  
     const mouseX = e.clientX
     const mouseY = e.clientY
     const hit = getMeshUnderPointer(this.medias, this.gl, this.camera, mouseX, mouseY)
@@ -511,32 +533,37 @@ class App {
     this.boundOnTouchUp = this.onTouchUp.bind(this)
     this.boundOnCanvasClick = this.onCanvasClick.bind(this)
     window.addEventListener('resize', this.boundOnResize)
-    window.addEventListener('mousedown', this.boundOnTouchDown)
-    window.addEventListener('mousemove', this.boundOnTouchMove)
-    window.addEventListener('mouseup', this.boundOnTouchUp)
-    window.addEventListener('touchstart', this.boundOnTouchDown)
-    window.addEventListener('touchmove', this.boundOnTouchMove)
-    window.addEventListener('touchend', this.boundOnTouchUp)
+    // Mobile só touch, desktop só mouse
+    if (isMobile) {
+      window.addEventListener('touchstart', this.boundOnTouchDown)
+      window.addEventListener('touchmove', this.boundOnTouchMove)
+      window.addEventListener('touchend', this.boundOnTouchUp)
+    } else {
+      window.addEventListener('mousedown', this.boundOnTouchDown)
+      window.addEventListener('mousemove', this.boundOnTouchMove)
+      window.addEventListener('mouseup', this.boundOnTouchUp)
+      this.gl.canvas.addEventListener('mousemove', this.onCanvasMouseMove.bind(this));
+    }
     this.gl.canvas.addEventListener('click', this.boundOnCanvasClick)
-    this.gl.canvas.addEventListener('mousemove', this.onCanvasMouseMove.bind(this));
   }
   destroy() {
     window.cancelAnimationFrame(this.raf)
     window.removeEventListener('resize', this.boundOnResize)
-    //window.removeEventListener('mousewheel', this.boundOnWheel)
-    //window.removeEventListener('wheel', this.boundOnWheel)
-    window.removeEventListener('mousedown', this.boundOnTouchDown)
-    window.removeEventListener('mousemove', this.boundOnTouchMove)
-    window.removeEventListener('mouseup', this.boundOnTouchUp)
-    window.removeEventListener('touchstart', this.boundOnTouchDown)
-    window.removeEventListener('touchmove', this.boundOnTouchMove)
-    window.removeEventListener('touchend', this.boundOnTouchUp)
+    if (isMobile) {
+      window.removeEventListener('touchstart', this.boundOnTouchDown)
+      window.removeEventListener('touchmove', this.boundOnTouchMove)
+      window.removeEventListener('touchend', this.boundOnTouchUp)
+    } else {
+      window.removeEventListener('mousedown', this.boundOnTouchDown)
+      window.removeEventListener('mousemove', this.boundOnTouchMove)
+      window.removeEventListener('mouseup', this.boundOnTouchUp)
+      this.gl.canvas.removeEventListener('mousemove', this.onCanvasMouseMove);
+    }
     if (this.gl && this.boundOnCanvasClick)
       this.gl.canvas.removeEventListener('click', this.boundOnCanvasClick)
     if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
       this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas)
     }
-    this.gl.canvas.removeEventListener('mousemove', this.onCanvasMouseMove);
   }
 }
 
@@ -555,6 +582,16 @@ export default function CircularGallery({
     }
   }, [items, bend, textColor, borderRadius, font])
   return (
-    <div className='w-full h-full overflow-hidden cursor-grab active:cursor-grabbing' ref={containerRef} />
+    <div
+      className='w-full h-full overflow-hidden cursor-grab active:cursor-grabbing'
+      ref={containerRef}
+      style={{
+        touchAction: 'pan-y',
+        WebkitTapHighlightColor: 'transparent',
+        // No mobile: aumenta área de toque e evita seleção acidental
+        userSelect: isMobile ? "none" : undefined,
+        minHeight: isMobile ? 320 : undefined,
+      }}
+    />
   )
 }
