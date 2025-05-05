@@ -4,8 +4,6 @@ import Welcome from "@/app/components/welcome";
 import Header from "@/app/components/header";
 import Projects from "@/app/components/projects";
 import Gallery from "@/app/components/gallery";
-import WorkExperience from "@/app/components/workexperience";
-import AboutMe from "@/app/components/aboutme";
 
 import { useLang } from '@/app/contexts/LangContext';
 
@@ -179,8 +177,6 @@ export default function Home() {
       <Header />
       <Projects />
       <Gallery />
-      {/*<WorkExperience >*/}
-      {/*<AboutMe />*/}
     </div>
   );
 }

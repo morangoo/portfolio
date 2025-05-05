@@ -8,12 +8,6 @@
   "projectsScreen": {
     "projects": "Projects"
   },
-  "aboutScreen": {
-      "title": "About Me"
-  },
-  "workExperienceScreen": {
-    "title": "Work Experience"
-  },
   "galleryScreen": {
     "title": "Gallery"
   },

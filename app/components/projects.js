@@ -6,6 +6,7 @@ import { useLang } from '@/app/contexts/LangContext';
 import CircularGallery from '@/app/utils/CircularGallery';
 import DecryptedText from '@/app/utils/DecryptedText';
 import AnimatedContent from '@/app/utils/AnimatedContent';
+import FadeContent from '@/app/utils/FadeContent';
 
 const Projects = () => {
   const { language, translations } = useLang();
