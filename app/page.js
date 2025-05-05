@@ -11,12 +11,25 @@ import { useLang } from '@/app/contexts/LangContext';
 
 import { motion } from "motion/react";
 
+// Simple mobile detection function
+function isMobileDevice() {
+  if (typeof window === "undefined") return false;
+  return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(window.navigator.userAgent);
+}
+
 export default function Home() {
   const { language, translations } = useLang();
   
   const [showWelcome, setShowWelcome] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    setIsMobile(isMobileDevice());
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return; // Don't setup observer if on mobile
+
     const observer = new IntersectionObserver((entries) => {
       const [entry] = entries;
   
@@ -41,7 +54,91 @@ export default function Home() {
         observer.unobserve(targetElement);
       }
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          background: "#141414",
+          color: "white",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 9999,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          padding: "5vw",
+        }}
+      >
+        <style>
+          {`
+            @media (max-width: 900px) {
+              .pc-block-img {
+                width: 350px !important;
+                height: 350px !important;
+                margin-bottom: 1.3rem !important;
+              }
+              .block-title {
+                font-size: 1.6rem !important;
+              }
+              .block-main-text {
+                font-size: 1.1rem !important;
+              }
+              .block-secondary-text {
+                font-size: 1rem !important;
+              }
+            }
+            @media (max-width: 600px) {
+              .pc-block-img {
+                width: 225px !important;
+                height: 225px !important;
+                margin-bottom: 1rem !important;
+              }
+              .block-title {
+                font-size: 1.1rem !important;
+              }
+              .block-main-text {
+                font-size: 0.95rem !important;
+              }
+              .block-secondary-text {
+                font-size: 0.9rem !important;
+              }
+            }
+          `}
+        </style>
+        <img
+          src="/gandalf.gif"
+          alt="PC Only"
+          className="pc-block-img"
+          style={{
+            width: "16rem",
+            height: "16rem",
+            objectFit: "contain",
+            marginBottom: "2rem",
+            filter: "drop-shadow(0 0 16px #000a)",
+            maxWidth: "35vw",
+            maxHeight: "35vw",
+          }}
+        />
+        <div style={{ textAlign: "center", width: "100%" }}>
+          <div className="block-title" style={{ fontWeight: 700, fontSize: "2.3rem", marginBottom: "0.5rem" }}>
+            Uh oh!
+          </div>
+          <div className="block-main-text" style={{ fontSize: "1.3rem" }}>
+            Only PC users are welcome.
+          </div>
+          <div className="block-secondary-text" style={{ marginTop: "1.2rem", fontSize: "1.1rem", color: "#cccccc" }}>
+            Please visit this site on a desktop device.
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -80,8 +177,8 @@ export default function Home() {
       <Header />
       <Projects />
       <Gallery />
-      <WorkExperience />
-      <AboutMe />
+      {/*<WorkExperience >*/}
+      {/*<AboutMe />*/}
     </div>
   );
 }
