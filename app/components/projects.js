@@ -2,7 +2,6 @@
 import '@/app/styles/projects.css';
 
 import { useLang } from '@/app/contexts/LangContext';
-import { useEffect, useState } from 'react';
 
 import CircularGallery from '@/app/utils/CircularGallery';
 import DecryptedText from '@/app/utils/DecryptedText';
@@ -10,22 +9,6 @@ import AnimatedContent from '@/app/utils/AnimatedContent';
 
 const Projects = () => {
   const { language, translations } = useLang();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Ajusta o limite conforme necessário (768px é um padrão comum).
-    };
-    
-    // Configuração inicial
-    handleResize();
-
-    // Ouvinte de redimensionamento
-    window.addEventListener('resize', handleResize);
-
-    // Limpeza do ouvinte
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <div id="projects" className="projects-container">
@@ -51,7 +34,7 @@ const Projects = () => {
       </h1>
       <div className="projects-list-container">
         <CircularGallery 
-          bend={isMobile ? 0.25 : 2} // Altera o valor do bend com base no estado
+          bend={2} // Altera o valor do bend com base no estado
           textColor="#ffffff" 
           borderRadius={0.05}
           items={
