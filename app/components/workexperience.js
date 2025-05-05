@@ -7,9 +7,9 @@ import { useState } from 'react';
 
 const carouselItems = [
   {
-    title: 'Desenvolvedor Frontend',
-    company: 'Empresa X',
-    period: 'Jan 2021 - Atual',
+    title: 'Desenvolvedor Full-Stack',
+    company: 'Refresh Bubbles',
+    period: 'Nov 2024 - Today',
     description: 'Responsável pelo desenvolvimento e manutenção de aplicações web modernas usando React e NextJS.',
     logo: 'refreshbubbles.png',
     techstack: ["React", "Javascript"]
@@ -28,7 +28,7 @@ const carouselItems = [
     period: '2019 - 2020',
     description: 'Entrega de soluções web rápidas e responsivas para clientes nacionais e internacionais.',
     logo: 'tawsoftware.png',
-    techstack: ["React", "Javascript", "Vue"]
+    techstack: ["React", "Javascript", "Vue", "jQuery"]
   }
 ];
 

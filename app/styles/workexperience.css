@@ -72,7 +72,10 @@
   display: flex;
   flex: 1;
   flex-direction: row;
+  align-items: center; 
+  gap: 2vw;
 }
+
 
 .carousel-item {
   flex: 1;
@@ -204,25 +207,40 @@
     left: 4vw;
     top: 4vw;
   }
+  .carousel-item-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .carousel-logo-container {
+    display: none;
+  }
+  .workexperience-logo {
+    display: none;
+  }
+
 }
 
 .carousel-logo-container {
   width: 25%;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .workexperience-logo {
   align-self: center !important;
-  width: 16rem !important;
-  height: 16rem !important;
+  object-fit: cover !important;
+  width: 100% !important;
+  height: auto !important;
   filter: grayscale(100);
 }
 
 .workexperience-techstack {
   display: flex;
-  margin-top: 5px;
+  margin-top: 1rem;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .workexperience-tech {
