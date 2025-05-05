@@ -22,6 +22,7 @@ export default function Home() {
   
       if (!entry.isIntersecting) {
         setShowWelcome(false);
+        document.documentElement.style.overflow = 'auto';
         document.body.style.overflow = 'auto';
         window.scrollTo(0, 0);
       }

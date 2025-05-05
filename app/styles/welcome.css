@@ -9,6 +9,7 @@
     margin: 0;
     z-index: 20;
     position: relative;
+    overflow: hidden !important;
 }
   
 .hello-message {
