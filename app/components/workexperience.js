@@ -11,23 +11,25 @@ const carouselItems = [
     company: 'Empresa X',
     period: 'Jan 2021 - Atual',
     description: 'Responsável pelo desenvolvimento e manutenção de aplicações web modernas usando React e NextJS.',
-    logo: 'refreshbubbles.png'
+    logo: 'refreshbubbles.png',
+    techstack: ["React", "Javascript"]
   },
   {
     title: 'Estágio Fullstack',
     company: 'Empresa Y',
     period: 'Jul 2020 - Dez 2020',
     description: 'Participação em projetos de backend e frontend, com foco em Node.js e interfaces responsivas.',
-    logo: '/logos/empresa-y.png'
+    logo: '/logos/empresa-y.png',
+    techstack: ["React", "Javascript"]
   },
   {
     title: 'Fullstack Developer',
     company: 'Vários clientes',
     period: '2019 - 2020',
     description: 'Entrega de soluções web rápidas e responsivas para clientes nacionais e internacionais.',
-    logo: 'tawsoftware.png'
+    logo: 'tawsoftware.png',
+    techstack: ["React", "Javascript", "Vue"]
   }
-  // Adiciona mais experiências conforme necessário
 ];
 
 const WorkExperience = () => {
@@ -103,7 +105,8 @@ const WorkExperience = () => {
           className={`carousel ${animating ? `animating ${direction}` : ''}`}
           key={activeIdx}
         >
-          <div className="carousel-item">
+          <div className="carousel-item-container">
+            <div className="carousel-logo-container">
             {carouselItems[activeIdx].logo && (
               <img
                 src={carouselItems[activeIdx].logo}
@@ -112,10 +115,18 @@ const WorkExperience = () => {
                 style={{ width: 48, height: 48, objectFit: 'contain', marginBottom: 8 }}
               />
             )}
+            </div>
+            <div className="carousel-item">
             <h2>{carouselItems[activeIdx].title}</h2>
             <h3>{carouselItems[activeIdx].company}</h3>
             <span className="period">{carouselItems[activeIdx].period}</span>
             <p>{carouselItems[activeIdx].description}</p>
+            <div className="workexperience-techstack">
+              {carouselItems[activeIdx].techstack.map((tech, i) => (
+                <span className="workexperience-tech" key={i}>{tech}</span>
+              ))}
+            </div>
+          </div>
           </div>
         </div>
         <button
