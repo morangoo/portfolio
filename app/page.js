@@ -22,8 +22,8 @@ export default function Home() {
   
       if (!entry.isIntersecting) {
         setShowWelcome(false);
-        document.documentElement.style.overflow = 'auto';
-        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflowY = 'auto';
+        document.body.style.overflowY = 'auto';
         window.scrollTo(0, 0);
       }
     }, {
