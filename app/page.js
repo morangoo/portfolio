@@ -146,7 +146,7 @@ export default function Home() {
         <a href="https://github.com/migueelss" target="_blank">
           <img className="menuLogo" src="/githublogo.svg" style={{width: "32px"}}/>
         </a>
-        <a href="https://www.linkedin.com/in/santosbruno01/" target="_blank">
+        <a href="https://www.linkedin.com/in/migueel/" target="_blank">
           <img className="menuLogo" src="/linkedinlogo.svg" style={{width: "32px"}}/>
         </a>
         <a href="https://buymeacoffee.com/migueelss" target="_blank">
