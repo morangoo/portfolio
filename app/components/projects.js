@@ -44,7 +44,7 @@ const Projects = () => {
                 text: "Toshokan",
                 image: "/toshokan.png",
                 id: "toshokan",
-                link: "https://toshokan.vercel.app/",
+                link: "https://toshokan-azure.vercel.app/",
               },
               {
                 text: "Work in Progress (WIP)",
