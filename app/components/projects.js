@@ -41,6 +41,11 @@ const Projects = () => {
           items={
             [
               {
+                text: "Toshokan",
+                image: "/toshokan.png",
+                id: "toshokan",
+              },
+              {
                 text: "Work in Progress (WIP)",
                 image: "https://i.imgur.com/JoPEuOt.jpeg",
                 id: "WIP"
