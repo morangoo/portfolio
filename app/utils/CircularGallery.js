@@ -118,6 +118,7 @@ class Media {
     screen,
     text,
     id,
+    link,
     viewport,
     bend,
     textColor,
@@ -135,6 +136,7 @@ class Media {
     this.screen = screen
     this.text = text
     this.id = id
+    this.link = link
     this.isHovered = false;
     this.viewport = viewport
     this.bend = bend
@@ -397,7 +399,8 @@ class App {
           scene: this.scene,
           screen: this.screen,
           text: data.text,
-          id: data.id, // <-- NOVO
+          id: data.id,
+          link: data.link,
           viewport: this.viewport,
           bend,
           textColor,
@@ -497,7 +500,11 @@ class App {
     const mouseY = e.clientY
     const hit = getMeshUnderPointer(this.medias, this.gl, this.camera, mouseX, mouseY)
     if (hit) {
-      //alert(hit.id)
+      if (hit.link) {
+        window.open(hit.link, '_blank')
+      } else {
+        console.log('No link available for this item.')
+      }
     }
   }
   addEventListeners() {
