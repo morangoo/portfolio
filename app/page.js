@@ -134,7 +134,7 @@ export default function Home() {
             Please visit this site on a desktop device.
           </div>
           <div style={{ marginTop: "1.2rem", fontSize: "0.8rem", color: "#cccccc" }}>You can check my projects here: </div>
-          <div style={{ marginTop: "0.5rem", fontSize: "1.1rem", color: "#ffffff" }}><a href="https://github.com/migueelss">GitHub</a></div>
+          <div style={{ marginTop: "0.5rem", fontSize: "1.1rem", color: "#ffffff" }}><a href="https://github.com/morangoo/portfolio">GitHub</a></div>
         </div>
       </div>
     );
@@ -143,7 +143,7 @@ export default function Home() {
   return (
     <div>
       <div style={{position: "fixed", top: 20, right: 20, zIndex: 1000}} className="hidden sm:flex gap-3">
-        <a href="https://github.com/migueelss" target="_blank">
+        <a href="https://github.com/morangoo/portfolio" target="_blank">
           <img className="menuLogo" src="/githublogo.svg" style={{width: "32px"}}/>
         </a>
         <a href="https://www.linkedin.com/in/migueel/" target="_blank">
