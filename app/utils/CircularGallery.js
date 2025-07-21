@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import {
   Renderer,
   Camera,
@@ -555,13 +555,85 @@ export default function CircularGallery({
   font = "bold 30px DM Sans"
 }) {
   const containerRef = useRef(null)
+  const [tooltip, setTooltip] = useState({ visible: false, html: '', x: 0, y: 0 })
+
   useEffect(() => {
-    const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font })
-    return () => {
-      app.destroy()
+    let app;
+    let lastHovered = null;
+    let rafId;
+
+    function showTooltip(html, x, y) {
+      setTooltip({ visible: true, html, x, y })
     }
-  }, [items, bend, textColor, borderRadius, font])
+    function hideTooltip() {
+      setTooltip(t => t.visible ? { ...t, visible: false } : t)
+    }
+    function onMouseMove(e) {
+      if (!app || !app.medias) return;
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      const hit = getMeshUnderPointer(app.medias, app.gl, app.camera, mouseX, mouseY);
+      if (hit && hit.id !== lastHovered) {
+        lastHovered = hit.id;
+        if (items && items[hit.index] && items[hit.index].tooltip) {
+          showTooltip(items[hit.index].tooltip, mouseX, mouseY);
+        } else {
+          hideTooltip();
+        }
+      } else if (!hit) {
+        lastHovered = null;
+        hideTooltip();
+      } else if (hit && items && items[hit.index] && items[hit.index].tooltip) {
+        // Update position if still hovering
+        setTooltip(t => t.visible ? { ...t, x: mouseX, y: mouseY } : t)
+      }
+    }
+
+    app = new App(containerRef.current, { items, bend, textColor, borderRadius, font });
+    // Attach mousemove for tooltip
+    const canvas = app.gl && app.gl.canvas;
+    if (canvas) {
+      canvas.addEventListener('mousemove', onMouseMove);
+      canvas.addEventListener('mouseleave', hideTooltip);
+    }
+
+    return () => {
+      if (canvas) {
+        canvas.removeEventListener('mousemove', onMouseMove);
+        canvas.removeEventListener('mouseleave', hideTooltip);
+      }
+      if (app) app.destroy();
+      cancelAnimationFrame(rafId);
+    }
+  }, [items, bend, textColor, borderRadius, font]);
+
   return (
-    <div className='w-full h-full overflow-hidden cursor-grab active:cursor-grabbing' ref={containerRef} />
+    <div className='w-full h-full overflow-hidden cursor-grab active:cursor-grabbing' ref={containerRef} style={{position: 'relative'}}>
+      {tooltip.visible && (
+        <div
+          style={{
+            position: 'fixed',
+            left: tooltip.x + 16,
+            top: tooltip.y + 16,
+            zIndex: 9999,
+            pointerEvents: 'none',
+            background: 'rgba(30,30,30,0.95)',
+            color: '#fff',
+            borderRadius: 8,
+            padding: '10px 14px',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
+            fontSize: 15,
+            maxWidth: 320,
+            minWidth: 80,
+            minHeight: 24,
+            lineHeight: 1.4,
+            transition: 'opacity 0.1s',
+            opacity: tooltip.visible ? 1 : 0,
+            whiteSpace: 'pre-line',
+          }}
+          dangerouslySetInnerHTML={{ __html: tooltip.html }}
+        />
+      )}
+    </div>
   )
 }

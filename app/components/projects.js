@@ -45,6 +45,7 @@ const Projects = () => {
                 image: "/toshokan.png",
                 id: "toshokan",
                 link: "https://toshokan-azure.vercel.app/",
+                tooltip: "Made with SvelteKit and Tailwind CSS"
               },
               {
                 text: "Work in Progress (WIP)",
