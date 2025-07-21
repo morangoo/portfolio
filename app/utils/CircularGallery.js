@@ -387,27 +387,29 @@ class App {
       { image: `https://picsum.photos/seed/12/800/600?grayscale`, text: "Palm Trees" }
     ]
     const galleryItems = items && items.length ? items : defaultItems
-    this.mediasImages = galleryItems.concat(galleryItems)
+    // Duplicar mantendo todos os props
+    this.galleryItems = galleryItems;
+    this.mediasImages = galleryItems.concat(galleryItems).map((item) => ({ ...item }));
     this.medias = this.mediasImages.map((data, index) => {
-        return new Media({
-          geometry: this.planeGeometry,
-          gl: this.gl,
-          image: data.image,
-          index,
-          length: this.mediasImages.length,
-          renderer: this.renderer,
-          scene: this.scene,
-          screen: this.screen,
-          text: data.text,
-          id: data.id,
-          link: data.link,
-          viewport: this.viewport,
-          bend,
-          textColor,
-          borderRadius,
-          font
-        })
+      return new Media({
+        geometry: this.planeGeometry,
+        gl: this.gl,
+        image: data.image,
+        index,
+        length: this.mediasImages.length,
+        renderer: this.renderer,
+        scene: this.scene,
+        screen: this.screen,
+        text: data.text,
+        id: data.id,
+        link: data.link,
+        viewport: this.viewport,
+        bend,
+        textColor,
+        borderRadius,
+        font
       })
+    })
   }
   onTouchDown(e) {
     this.isDown = true
@@ -575,17 +577,21 @@ export default function CircularGallery({
       const hit = getMeshUnderPointer(app.medias, app.gl, app.camera, mouseX, mouseY);
       if (hit && hit.id !== lastHovered) {
         lastHovered = hit.id;
-        if (items && items[hit.index] && items[hit.index].tooltip) {
-          showTooltip(items[hit.index].tooltip, mouseX, mouseY);
+        // Corrigir index para pegar sempre do array original
+        const origIdx = hit.index % (items?.length || 1);
+        if (items && items[origIdx] && items[origIdx].tooltip) {
+          showTooltip(items[origIdx].tooltip, mouseX, mouseY);
         } else {
           hideTooltip();
         }
       } else if (!hit) {
         lastHovered = null;
         hideTooltip();
-      } else if (hit && items && items[hit.index] && items[hit.index].tooltip) {
-        // Update position if still hovering
-        setTooltip(t => t.visible ? { ...t, x: mouseX, y: mouseY } : t)
+      } else if (hit && items) {
+        const origIdx = hit.index % (items.length || 1);
+        if (items[origIdx] && items[origIdx].tooltip) {
+          setTooltip(t => t.visible ? { ...t, x: mouseX, y: mouseY } : t)
+        }
       }
     }
 
