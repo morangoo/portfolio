@@ -6,3 +6,4 @@
 - Adicionar Work Experience (Infinite Menu do React-Bits é uma possibilidade, ou posso fazer um trajeto baseado em amcharts)
 
 - Projetos no telemóvel ao dar scroll, dá scroll UP/DOWN também. A pagína tem overflow-x por algum motivo.
+- Trabalhar nas tooltips dos projetos
