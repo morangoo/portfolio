@@ -557,15 +557,23 @@ export default function CircularGallery({
   font = "bold 30px DM Sans"
 }) {
   const containerRef = useRef(null)
-  const [tooltip, setTooltip] = useState({ visible: false, html: '', x: 0, y: 0 })
+  const [tooltip, setTooltip] = useState({ visible: false, content: null, x: 0, y: 0 })
 
   useEffect(() => {
     let app;
     let lastHovered = null;
     let rafId;
 
-    function showTooltip(html, x, y) {
-      setTooltip({ visible: true, html, x, y })
+    function showTooltip(content, x, y) {
+      setTooltip(prev => {
+        if (prev.visible && prev.content === content) {
+          // Só atualiza posição
+          return { ...prev, x, y };
+        } else {
+          // Atualiza tudo (inclui conteúdo)
+          return { visible: true, content, x, y };
+        }
+      });
     }
     function hideTooltip() {
       setTooltip(t => t.visible ? { ...t, visible: false } : t)
@@ -575,23 +583,24 @@ export default function CircularGallery({
       const mouseX = e.clientX;
       const mouseY = e.clientY;
       const hit = getMeshUnderPointer(app.medias, app.gl, app.camera, mouseX, mouseY);
-      if (hit && hit.id !== lastHovered) {
-        lastHovered = hit.id;
-        // Corrigir index para pegar sempre do array original
+      if (hit) {
         const origIdx = hit.index % (items?.length || 1);
-        if (items && items[origIdx] && items[origIdx].tooltip) {
-          showTooltip(items[origIdx].tooltip, mouseX, mouseY);
+        if (hit.id !== lastHovered) {
+          lastHovered = hit.id;
+          if (items && items[origIdx] && items[origIdx].tooltip) {
+            showTooltip(items[origIdx].tooltip, mouseX, mouseY);
+          } else {
+            hideTooltip();
+          }
         } else {
-          hideTooltip();
+          // Só atualiza posição
+          if (items && items[origIdx] && items[origIdx].tooltip) {
+            setTooltip(prev => prev.visible ? { ...prev, x: mouseX, y: mouseY } : prev);
+          }
         }
-      } else if (!hit) {
+      } else {
         lastHovered = null;
         hideTooltip();
-      } else if (hit && items) {
-        const origIdx = hit.index % (items.length || 1);
-        if (items[origIdx] && items[origIdx].tooltip) {
-          setTooltip(t => t.visible ? { ...t, x: mouseX, y: mouseY } : t)
-        }
       }
     }
 
@@ -626,10 +635,9 @@ export default function CircularGallery({
             background: 'rgba(30,30,30,0.95)',
             color: '#fff',
             borderRadius: 8,
-            padding: '10px 14px',
             boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
             fontSize: 15,
-            maxWidth: 320,
+            maxWidth: 340,
             minWidth: 80,
             minHeight: 24,
             lineHeight: 1.4,
@@ -637,8 +645,9 @@ export default function CircularGallery({
             opacity: tooltip.visible ? 1 : 0,
             whiteSpace: 'pre-line',
           }}
-          dangerouslySetInnerHTML={{ __html: tooltip.html }}
-        />
+        >
+          {tooltip.content}
+        </div>
       )}
     </div>
   )
