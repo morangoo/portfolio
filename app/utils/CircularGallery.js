@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
+import { useLang } from '@/app/contexts/LangContext';
 import {
   Renderer,
   Camera,
@@ -558,8 +559,17 @@ export default function CircularGallery({
 }) {
   const containerRef = useRef(null)
   const [tooltip, setTooltip] = useState({ visible: false, content: null, x: 0, y: 0 })
+  const { language } = useLang();
+  const [isClient, setIsClient] = useState(false);
+  const [showHint, setShowHint] = useState(true);
+  const hintTimeoutRef = useRef();
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
     let app;
     let lastHovered = null;
     let rafId;
@@ -603,6 +613,22 @@ export default function CircularGallery({
         hideTooltip();
       }
     }
+    // Move these handlers outside the conditional so they are always defined
+    function handleMouseEnter() {
+      if (showHint) {
+        clearTimeout(hintTimeoutRef.current);
+        hintTimeoutRef.current = setTimeout(() => setShowHint(false), 3000);
+      }
+    }
+    function handleMouseDown() {
+      setShowHint(false);
+    }
+    function handleTouchStart() {
+      setShowHint(false);
+    }
+    function handleClick() {
+      setShowHint(false);
+    }
 
     app = new App(containerRef.current, { items, bend, textColor, borderRadius, font });
     // Attach mousemove for tooltip
@@ -610,45 +636,82 @@ export default function CircularGallery({
     if (canvas) {
       canvas.addEventListener('mousemove', onMouseMove);
       canvas.addEventListener('mouseleave', hideTooltip);
+
+      canvas.addEventListener('mouseenter', handleMouseEnter);
+      canvas.addEventListener('mousedown', handleMouseDown);
+      canvas.addEventListener('touchstart', handleTouchStart);
+      canvas.addEventListener('click', handleClick);
     }
 
     return () => {
       if (canvas) {
         canvas.removeEventListener('mousemove', onMouseMove);
         canvas.removeEventListener('mouseleave', hideTooltip);
+        canvas.removeEventListener('mouseenter', handleMouseEnter);
+        canvas.removeEventListener('mousedown', handleMouseDown);
+        canvas.removeEventListener('touchstart', handleTouchStart);
+        canvas.removeEventListener('click', handleClick);
+        clearTimeout(hintTimeoutRef.current);
       }
       if (app) app.destroy();
       cancelAnimationFrame(rafId);
     }
-  }, [items, bend, textColor, borderRadius, font]);
+  }, [isClient, items, bend, textColor, borderRadius, font]);
 
   return (
-    <div className='w-full h-full overflow-hidden cursor-grab active:cursor-grabbing' ref={containerRef} style={{position: 'relative'}}>
-      {tooltip.visible && (
-        <div
-          style={{
-            position: 'fixed',
-            left: tooltip.x + 16,
-            top: tooltip.y + 16,
-            zIndex: 9999,
+    <>
+      <div
+        className='w-full h-full overflow-hidden cursor-grab active:cursor-grabbing'
+        ref={containerRef}
+        style={{ position: 'relative', zIndex: 0 }}
+      >
+        {/* Hint overlay, zIndex baixo, pointerEvents none */}
+        {isClient && showHint && (
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            textAlign: 'center',
+            fontSize: 18,
+            fontWeight: 500,
+            color: '#222',
+            zIndex: 1,
             pointerEvents: 'none',
-            background: 'rgba(30,30,30,0.95)',
-            color: '#fff',
-            borderRadius: 8,
-            boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
-            fontSize: 15,
-            maxWidth: 340,
-            minWidth: 80,
-            minHeight: 24,
-            lineHeight: 1.4,
-            transition: 'opacity 0.1s',
-            opacity: tooltip.visible ? 1 : 0,
-            whiteSpace: 'pre-line',
-          }}
-        >
-          {tooltip.content}
-        </div>
-      )}
-    </div>
+            background: 'none',
+            transition: 'opacity 0.3s',
+            userSelect: 'none',
+          }}>
+            {language === 'pt' ? 'Arraste para navegar →' : 'Drag to navigate →'}
+          </div>
+        )}
+        {/* Tooltip overlay, zIndex alto */}
+        {isClient && tooltip.visible && (
+          <div
+            style={{
+              position: 'fixed',
+              left: tooltip.x + 16,
+              top: tooltip.y + 16,
+              zIndex: 9999,
+              pointerEvents: 'none',
+              background: 'rgba(30,30,30,0.95)',
+              color: '#fff',
+              borderRadius: 8,
+              boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
+              fontSize: 15,
+              maxWidth: 340,
+              minWidth: 80,
+              minHeight: 24,
+              lineHeight: 1.4,
+              transition: 'opacity 0.1s',
+              opacity: tooltip.visible ? 1 : 0,
+              whiteSpace: 'pre-line',
+            }}
+          >
+            {tooltip.content}
+          </div>
+        )}
+      </div>
+    </>
   )
 }
