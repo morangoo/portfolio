@@ -560,89 +560,83 @@ export default function CircularGallery({
   const containerRef = useRef(null)
   const [tooltip, setTooltip] = useState({ visible: false, content: null, x: 0, y: 0 })
   const { language } = useLang();
-  const [isClient, setIsClient] = useState(false);
+  // Remove isClient state, useEffect will only run on client
   const [showHint, setShowHint] = useState(true);
   const hintTimeoutRef = useRef();
+  const appRef = useRef();
+  const lastHoveredRef = useRef(null);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  // Remove isClient effect
 
-  useEffect(() => {
-    if (!isClient) return;
-    let app;
-    let lastHovered = null;
-    let rafId;
-
-    function showTooltip(content, x, y) {
-      setTooltip(prev => {
-        if (prev.visible && prev.content === content) {
-          // Só atualiza posição
-          return { ...prev, x, y };
+  // Tooltip helpers
+  function showTooltip(content, x, y) {
+    setTooltip(prev => {
+      if (prev.visible && prev.content === content) {
+        return { ...prev, x, y };
+      } else {
+        return { visible: true, content, x, y };
+      }
+    });
+  }
+  function hideTooltip() {
+    setTooltip(t => t.visible ? { ...t, visible: false } : t)
+  }
+  // MouseMove handler always uses latest appRef
+  function onMouseMove(e) {
+    const app = appRef.current;
+    if (!app || !app.medias) return;
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const hit = getMeshUnderPointer(app.medias, app.gl, app.camera, mouseX, mouseY);
+    if (hit) {
+      const origIdx = hit.index % (items?.length || 1);
+      if (hit.id !== lastHoveredRef.current) {
+        lastHoveredRef.current = hit.id;
+        if (items && items[origIdx] && items[origIdx].tooltip) {
+          showTooltip(items[origIdx].tooltip, mouseX, mouseY);
         } else {
-          // Atualiza tudo (inclui conteúdo)
-          return { visible: true, content, x, y };
-        }
-      });
-    }
-    function hideTooltip() {
-      setTooltip(t => t.visible ? { ...t, visible: false } : t)
-    }
-    function onMouseMove(e) {
-      if (!app || !app.medias) return;
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-      const hit = getMeshUnderPointer(app.medias, app.gl, app.camera, mouseX, mouseY);
-      if (hit) {
-        const origIdx = hit.index % (items?.length || 1);
-        if (hit.id !== lastHovered) {
-          lastHovered = hit.id;
-          if (items && items[origIdx] && items[origIdx].tooltip) {
-            showTooltip(items[origIdx].tooltip, mouseX, mouseY);
-          } else {
-            hideTooltip();
-          }
-        } else {
-          // Só atualiza posição
-          if (items && items[origIdx] && items[origIdx].tooltip) {
-            setTooltip(prev => prev.visible ? { ...prev, x: mouseX, y: mouseY } : prev);
-          }
+          hideTooltip();
         }
       } else {
-        lastHovered = null;
-        hideTooltip();
+        if (items && items[origIdx] && items[origIdx].tooltip) {
+          setTooltip(prev => prev.visible ? { ...prev, x: mouseX, y: mouseY } : prev);
+        }
       }
+    } else {
+      lastHoveredRef.current = null;
+      hideTooltip();
     }
-    // Move these handlers outside the conditional so they are always defined
-    function handleMouseEnter() {
-      if (showHint) {
-        clearTimeout(hintTimeoutRef.current);
-        hintTimeoutRef.current = setTimeout(() => setShowHint(false), 3000);
-      }
+  }
+  // Hint handlers
+  function handleMouseEnter() {
+    if (showHint) {
+      clearTimeout(hintTimeoutRef.current);
+      hintTimeoutRef.current = setTimeout(() => setShowHint(false), 3000);
     }
-    function handleMouseDown() {
-      setShowHint(false);
-    }
-    function handleTouchStart() {
-      setShowHint(false);
-    }
-    function handleClick() {
-      setShowHint(false);
-    }
+  }
+  function handleMouseDown() {
+    setShowHint(false);
+  }
+  function handleTouchStart() {
+    setShowHint(false);
+  }
+  function handleClick() {
+    setShowHint(false);
+  }
 
-    app = new App(containerRef.current, { items, bend, textColor, borderRadius, font });
-    // Attach mousemove for tooltip
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font });
+    appRef.current = app;
     const canvas = app.gl && app.gl.canvas;
     if (canvas) {
       canvas.addEventListener('mousemove', onMouseMove);
       canvas.addEventListener('mouseleave', hideTooltip);
-
       canvas.addEventListener('mouseenter', handleMouseEnter);
       canvas.addEventListener('mousedown', handleMouseDown);
       canvas.addEventListener('touchstart', handleTouchStart);
       canvas.addEventListener('click', handleClick);
     }
-
     return () => {
       if (canvas) {
         canvas.removeEventListener('mousemove', onMouseMove);
@@ -654,9 +648,8 @@ export default function CircularGallery({
         clearTimeout(hintTimeoutRef.current);
       }
       if (app) app.destroy();
-      cancelAnimationFrame(rafId);
-    }
-  }, [isClient, items, bend, textColor, borderRadius, font]);
+    };
+  }, []);
 
   return (
     <>
@@ -666,7 +659,7 @@ export default function CircularGallery({
         style={{ position: 'relative', zIndex: 0 }}
       >
         {/* Hint overlay, zIndex baixo, pointerEvents none */}
-        {isClient && showHint && (
+        {showHint && (
           <div style={{
             position: 'absolute',
             top: 0,
@@ -686,7 +679,7 @@ export default function CircularGallery({
           </div>
         )}
         {/* Tooltip overlay, zIndex alto */}
-        {isClient && tooltip.visible && (
+        {tooltip.visible && (
           <div
             style={{
               position: 'fixed',
