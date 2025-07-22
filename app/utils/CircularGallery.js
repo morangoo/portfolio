@@ -562,6 +562,7 @@ export default function CircularGallery({
   const { language } = useLang();
   // Remove isClient state, useEffect will only run on client
   const [showHint, setShowHint] = useState(true);
+  const [isClient, setIsClient] = useState(false);
   const hintTimeoutRef = useRef();
   const appRef = useRef();
   const lastHoveredRef = useRef(null);
@@ -625,6 +626,7 @@ export default function CircularGallery({
   }
 
   useEffect(() => {
+    setIsClient(true);
     if (!containerRef.current) return;
     const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font });
     appRef.current = app;
@@ -659,38 +661,40 @@ export default function CircularGallery({
         style={{ position: 'relative', zIndex: 0 }}
       >
         {/* Hint overlay, zIndex baixo, pointerEvents none */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            textAlign: 'center',
-            fontSize: 22,
-            fontWeight: 700,
-            color: '#fff',
-            zIndex: 2,
-            pointerEvents: 'none',
-            background: 'none',
-            userSelect: 'none',
-            textShadow: '0 2px 12px rgba(0,0,0,0.45), 0 1px 0 #222',
-            opacity: showHint ? 1 : 0,
-            transition: 'opacity 0.5s',
-            animation: showHint ? 'cgHintFadeIn 0.7s' : 'cgHintFadeOut 0.5s',
-          }}
-        >
-          {language === 'pt' ? 'Arraste para navegar →' : 'Drag to navigate →'}
-          <style>{`
-            @keyframes cgHintFadeIn {
-              from { opacity: 0; transform: translateY(-10px); }
-              to { opacity: 1; transform: translateY(0); }
-            }
-            @keyframes cgHintFadeOut {
-              from { opacity: 1; }
-              to { opacity: 0; }
-            }
-          `}</style>
-        </div>
+        {isClient && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              textAlign: 'center',
+              fontSize: 22,
+              fontWeight: 700,
+              color: '#fff',
+              zIndex: 2,
+              pointerEvents: 'none',
+              background: 'none',
+              userSelect: 'none',
+              textShadow: '0 2px 12px rgba(0,0,0,0.45), 0 1px 0 #222',
+              opacity: showHint ? 1 : 0,
+              transition: 'opacity 0.5s',
+              animation: showHint ? 'cgHintFadeIn 0.7s' : 'cgHintFadeOut 0.5s',
+            }}
+          >
+            {language === 'pt' ? 'Arraste para navegar →' : 'Drag to navigate →'}
+            <style>{`
+              @keyframes cgHintFadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              @keyframes cgHintFadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+              }
+            `}</style>
+          </div>
+        )}
         {/* Tooltip overlay, zIndex alto */}
         {tooltip.visible && (
           <div

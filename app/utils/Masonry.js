@@ -91,6 +91,8 @@ const Masonry = ({
 
   const [containerRef, { width }] = useMeasure();
   const [imagesReady, setImagesReady] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   const getInitialPosition = (item) => {
     const containerRect = containerRef.current?.getBoundingClientRect();
@@ -227,8 +229,27 @@ const Masonry = ({
     }
   };
 
+  // Calcula altura máxima esperada do grid antes das imagens carregarem
+  const expectedMinHeight = useMemo(() => {
+    if (!items || items.length === 0) return 400;
+    const totalHeight = items.reduce((acc, item) => acc + (item.height / 2), 0);
+    return Math.ceil(totalHeight / columns) + 32; // gap extra
+  }, [items, columns]);
+
+  // Valores estáticos para SSR/hydration
+  const initialMinHeight = 400;
+  const initialOpacity = 1;
+
   return (
-    <div ref={containerRef} className="relative w-full h-full">
+    <div
+      ref={containerRef}
+      className="relative w-full h-full"
+      style={{
+        minHeight: mounted ? (imagesReady ? undefined : expectedMinHeight) : initialMinHeight,
+        opacity: mounted ? (imagesReady ? 1 : 0) : initialOpacity,
+        transition: 'opacity 0.5s',
+      }}
+    >
       {grid.map((item) => (
         <div
           key={item.id}
