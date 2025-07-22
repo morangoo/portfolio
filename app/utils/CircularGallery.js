@@ -659,25 +659,38 @@ export default function CircularGallery({
         style={{ position: 'relative', zIndex: 0 }}
       >
         {/* Hint overlay, zIndex baixo, pointerEvents none */}
-        {showHint && (
-          <div style={{
+        <div
+          style={{
             position: 'absolute',
             top: 0,
             left: 0,
             width: '100%',
             textAlign: 'center',
-            fontSize: 18,
-            fontWeight: 500,
-            color: '#222',
-            zIndex: 1,
+            fontSize: 22,
+            fontWeight: 700,
+            color: '#fff',
+            zIndex: 2,
             pointerEvents: 'none',
             background: 'none',
-            transition: 'opacity 0.3s',
             userSelect: 'none',
-          }}>
-            {language === 'pt' ? 'Arraste para navegar →' : 'Drag to navigate →'}
-          </div>
-        )}
+            textShadow: '0 2px 12px rgba(0,0,0,0.45), 0 1px 0 #222',
+            opacity: showHint ? 1 : 0,
+            transition: 'opacity 0.5s',
+            animation: showHint ? 'cgHintFadeIn 0.7s' : 'cgHintFadeOut 0.5s',
+          }}
+        >
+          {language === 'pt' ? 'Arraste para navegar →' : 'Drag to navigate →'}
+          <style>{`
+            @keyframes cgHintFadeIn {
+              from { opacity: 0; transform: translateY(-10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes cgHintFadeOut {
+              from { opacity: 1; }
+              to { opacity: 0; }
+            }
+          `}</style>
+        </div>
         {/* Tooltip overlay, zIndex alto */}
         {tooltip.visible && (
           <div
