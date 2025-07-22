@@ -19,7 +19,7 @@ const Gallery = () => {
     },
     {
       id: "cartazfasterfood",
-      img: "/gallery/cartazfasterfood.png",
+      img: "/gallery/CARTAZFASTERFOOD.png",
       height: 900,
     },
     {
